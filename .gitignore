@@ -1,3 +1,6 @@
+#temporaire, cache config
+config/
+
 # Logs
 logs
 *.log
