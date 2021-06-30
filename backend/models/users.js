@@ -12,16 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       models.Users.hasMany(models.Posts);
       models.Users.hasMany(models.Comments);
-
     }
   };
   Users.init({
-    userid: DataTypes.INTEGER,
     mail: DataTypes.STRING,
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
     password: DataTypes.STRING,
     team: DataTypes.STRING,
+    isadmin: DataTypes.BOOLEAN,
     profileurl: DataTypes.STRING,
     coverurl: DataTypes.STRING
   }, {

@@ -4,6 +4,7 @@ const path = require('path');
 const userRoutes = require('./routes/user');
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
+const bodyParser = require('body-parser');
 
 const app = express();//crée une app express
 
@@ -27,7 +28,9 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use(express.json()); //remplace body parser
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  
 
 app.use('/api/auth',userRoutes);
 
