@@ -2,6 +2,7 @@
 const express = require('express');//Importe express
 const path = require('path');
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const bodyParser = require('body-parser');
@@ -12,14 +13,15 @@ const sequelize = new Sequelize('p7_dev', 'achille', 'achille', {
   host: 'localhost',
   dialect: 'mysql'
 });
-/* TEST CONNEXION DB*/
 
+/* TEST CONNEXION DB
 try {
   sequelize.authenticate();
   console.log('Connection has been established successfully.');
 } catch (error) {
   console.error('Unable to connect to the database:', error);
-}
+}*/
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,7 +35,7 @@ app.use((req, res, next) => {
   
 
 app.use('/api/auth',userRoutes);
-
+app.use('/api/post',postRoutes);
 //redirection vers les routes
 
 //

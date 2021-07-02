@@ -7,8 +7,7 @@ require('dotenv').config();
 
 //Méthode création de compte
 exports.signup = (req, res, next)=>{
-    console.log(req.body)
-    
+
     let mail = req.body.mail;
     let firstname = req.body.firstname;
     let password = req.body.password;
@@ -55,5 +54,32 @@ exports.signup = (req, res, next)=>{
 
 //méthode de connexion
 exports.login = (req, res, next)=>{
+    let mail = req.body.mail;
+    let password = req.body.password;
 
+    models.Users.findOne({
+        attributes: ['mail', 'password','id'],
+        where: { mail: mail }
+        })
+    .then(user =>{
+        if (!user){
+            return res.status(401).json({error : "utilisateur non trouvé !"})
+        }
+        bcrypt.compare(password, user.password)
+            .then(valid=>{
+                if(!valid){
+                    return res.status(401).json({error : "mdp incorrect!"})
+                }
+                res.status(200).json({
+                    userId : user.id,
+                    token: jwt.sign(
+                        { userId: user.id },
+                        process.env.TOKEN_KEY,
+                        { expiresIn: '24h' }
+                      )
+                });
+            })
+            .catch(error => res.status(500).json({error}))    
+    })
+    .catch(error => res.status(500).json({error}));
 }
