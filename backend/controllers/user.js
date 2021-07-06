@@ -36,7 +36,15 @@ exports.signup = (req, res, next)=>{
                     team:team,
                     isadmin : false
                 })
-                    .then(newUser => { res.status(201).json({ 'id': newUser.id }) })
+                    .then(newUser => { res.status(201).json({
+                         'id': newUser.id,
+                         token: jwt.sign(
+                            { userId: user.id },
+                            process.env.TOKEN_KEY,
+                            { expiresIn: '24h' }
+                          ) 
+                        }) 
+                    })
                     .catch(error => {
                         res.status(500).json({ error })
                     })

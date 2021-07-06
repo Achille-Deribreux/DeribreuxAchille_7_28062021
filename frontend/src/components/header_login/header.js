@@ -18,22 +18,21 @@ function Header(){
                </Link>
            </div>
            
-           <Router>
+           
                <div>
-                    <Link to="auth/login" >
+                    <Link to="/login" >
                         <Button variant="contained" color="primary">
                             Connexion
                         </Button>
                     </Link>
                 </div>
                 <div>
-                <Link to="auth/signup" >
+                <Link to="/signup" >
                     <Button variant="contained" color="secondary">
                         Inscription
                     </Button>
                 </Link>
                 </div>
-            </Router>
        </header>
     )
 }

@@ -2,29 +2,65 @@ import React from 'react';
 import "./form.css";
 import Button from '@material-ui/core/Button';
 
+import TypeField from '../items/formItems/typeField'
 
-function FormLogin (){
-    return(
-        <section>
-            <form>
-                <div>
-                    <label for="input_mail">Adresse mail :</label>
-                    <br></br>
-                    <input type="text" name="mail" id="input_mail"/>
-                </div>
-                <div>
-                    <label for="password">Password :</label>
-                    <br></br>
-                    <input type="password" name="password" id="password"/>
-                </div>
-                <div>
-                    <Button variant="contained" color="secondary">
-                        Se connecter
-                    </Button>
-                </div>
-            </form>
-        </section>
-    )
+
+class FormLogin extends React.Component{
+
+    constructor(props){
+        super(props)
+        this.state = {mail : '',password:''}
+    }
+
+    handleMail = (e) => {
+       this.setState({
+           mail: e.target.value
+       })
+    }
+
+    handlePass = (e) => {
+        this.setState({
+            password: e.target.value
+        })
+     }
+
+     handleSubmit = (e) => {
+         e.preventDefault()
+         const data = JSON.stringify(this.state);
+        //Reset state
+        fetch("http://localhost:3000/api/auth/login",{
+            method: 'POST',
+            headers: { 
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json' 
+            },
+            body: data
+        })
+        .then(response => response.json())
+        .then((response) => {
+            console.log(response)
+            window.location="./home"
+        
+        })
+        .catch(function(error) {
+            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+          });
+
+     }
+
+    render() {
+        return(
+            <section>
+                     <TypeField name="mail" type="email" libelle="Adresse mail :" value={this.state.mail} onChange={this.handleMail} />
+                    <TypeField name="password" type="password" libelle="Mot De Passe :" value={this.state.password} onChange={this.handlePass} />
+                    <div>
+                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
+                            Se connecter
+                        </Button>
+                    </div>
+            </section>
+        )
+    }
 }
 
 

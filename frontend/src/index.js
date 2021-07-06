@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './components/index.css';
-import Login from './containers/login';
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter as Router,
@@ -10,11 +9,27 @@ import {
   Link
 } from "react-router-dom";
 
+import Login from './containers/login';
+import Signup from './containers/signup';
+import Home from './containers/home';
+
+
+
+
+
+
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Route path="/" exact component={Login}/>
-      <Route path="/auth/login" exact component={Login}/>
+      <Switch>
+        <Route path="/signup"  exact component={Signup}/>
+        <Route path="/"  exact component={Login}/>
+        <Route path="/login"  exact component={Login}/>
+        <Route path="/home"  exact component={Home}/>
+        
+      </Switch>
   </Router>
   </React.StrictMode>,
   document.getElementById('root')
