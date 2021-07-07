@@ -91,3 +91,19 @@ exports.login = (req, res, next)=>{
     })
     .catch(error => res.status(500).json({error}));
 }
+
+exports.getUser= (req, res, next) => {
+    let user_id = req.params.id;
+    models.Users.findOne({
+        where: {id: user_id}
+    })
+    .then(user =>{
+        if (!user){
+            return res.status(401).json({error : "utilisateur non trouvé !"})
+        }
+        else{
+            return res.status(200).json({'user':user})
+        }
+    })
+    .catch(error => res.status(500).json({error}));
+}

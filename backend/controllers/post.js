@@ -8,7 +8,7 @@ exports.getAll = (req, res, next)=>{
     models.Posts.findAll({
         order: [['createdAt', 'DESC']]
     })
-    .then((posts)=> res.status(200).json(posts))
+    .then((posts)=> res.status(203).json(posts))
     .catch((error) => res.status(400).json({ error }));
 }
 

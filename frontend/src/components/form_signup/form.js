@@ -2,8 +2,8 @@ import React from 'react';
 import "./form.css";
 import Button from '@material-ui/core/Button';
 
-import Field from '../items/formItems/field'
-import TypeField from '../items/formItems/typeField'
+import Field from '../formItems/field'
+import TypeField from '../formItems/typeField'
 
 
 class FormSignup extends React.Component{
