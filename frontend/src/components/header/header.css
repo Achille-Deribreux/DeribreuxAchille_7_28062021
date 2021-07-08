@@ -1,18 +1,9 @@
-header{
+.header{
     background-color: rgb(34, 34, 34);
-    height: 10rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1 3rem;
+    height: 12rem;
 }
 #logoWhite{
-    width: 40%;
+    width: 70%;
     margin: 2rem;
-}
-#userLogo{
-    height: 3rem;
-    width: 3rem;
-    filter : invert(1);
 }
 

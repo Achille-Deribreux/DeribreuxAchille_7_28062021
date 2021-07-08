@@ -9,9 +9,9 @@ require('dotenv').config();
 exports.signup = (req, res, next)=>{
 
     let mail = req.body.mail;
-    let firstname = req.body.firstname;
+    let firstname = req.body.prenom;
     let password = req.body.password;
-    let lastname = req.body.lastname;
+    let lastname = req.body.nom;
     let team = req.body.team;
 
 //Vérifications à introduire
@@ -39,10 +39,11 @@ exports.signup = (req, res, next)=>{
                     .then(newUser => { res.status(201).json({
                          'id': newUser.id,
                          token: jwt.sign(
-                            { userId: user.id },
+                            { userId: newUser.id },
                             process.env.TOKEN_KEY,
                             { expiresIn: '24h' }
-                          ) 
+                          ),
+                          isAuth : true
                         }) 
                     })
                     .catch(error => {
@@ -84,7 +85,8 @@ exports.login = (req, res, next)=>{
                         { userId: user.id },
                         process.env.TOKEN_KEY,
                         { expiresIn: '24h' }
-                      )
+                      ),
+                      isAuth : true
                 });
             })
             .catch(error => res.status(500).json({error}))    

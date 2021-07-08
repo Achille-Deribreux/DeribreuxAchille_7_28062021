@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../components/header/header'
 import Post from '../components/post/post'
-import Posts from '../components/posts/posts'
 
 class Home extends React.Component{
   constructor(props) {
@@ -23,7 +22,6 @@ class Home extends React.Component{
     //mieux que localstorage pour passer token? 
       .then(response => response.json())
       .then((results) => {
-        console.log(results)
           this.setState({
             isLoaded: true,
             items: results

@@ -6,12 +6,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 import Login from './containers/login';
 import Signup from './containers/signup';
 import Home from './containers/home';
+import PostCreation from './containers/PostCreation';
 
 
 
@@ -25,10 +27,12 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route path="/signup"  exact component={Signup}/>
-        <Route path="/"  exact component={Login}/>
+        <Route path="/"  exact component={Login}>
+          {/*<Redirect to="/home"/>*/}
+         </Route> 
         <Route path="/login"  exact component={Login}/>
         <Route path="/home"  exact component={Home}/>
-        
+        <Route path="/create-post" exact component={PostCreation}/>
       </Switch>
   </Router>
   </React.StrictMode>,

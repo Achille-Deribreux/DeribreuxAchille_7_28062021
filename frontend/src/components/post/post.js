@@ -4,11 +4,12 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
 
 import userLogo from "../../assets/user.png";
 import likeLogo from "../../assets/like.png";
-import User from "./parts/user";
+import Like from "./parts/like";
 
 class Post extends React.Component{
     constructor(props) {
@@ -40,7 +41,7 @@ class Post extends React.Component{
           });
       }
     render (){
-        const { content, date, likes} = this.props;
+        const { content, date, imgUrl, likes} = this.props;
         const  {isLoaded, items } = this.state;
       if (!isLoaded) {
       return <div>Chargement…</div>;
@@ -60,7 +61,7 @@ class Post extends React.Component{
                         {content}
                     </Typography>
                 </CardContent>
-        
+                    <Like likes={likes} />
             </Card>
         )
     }

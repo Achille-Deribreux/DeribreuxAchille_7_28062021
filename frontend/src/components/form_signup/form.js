@@ -52,6 +52,9 @@ class FormSignup extends React.Component{
         })
         console.log(e.target.value)
     }
+    signupResponseTranfer = (response) => {
+        this.props.signupResponseTranfer(response);
+    }
     handleSubmit = (e) => {
         e.preventDefault()
         const data = JSON.stringify(this.state);
@@ -63,7 +66,7 @@ class FormSignup extends React.Component{
             password:'',
             team:''
         })
-        fetch("http://localhost:3000/api/auth/login",{
+        fetch("http://localhost:3000/api/auth/signup",{
             method: 'POST',
             headers: { 
             'Accept': 'application/json', 
@@ -74,7 +77,8 @@ class FormSignup extends React.Component{
         .then(response => response.json())
         .then((response) => {
             console.log(response)
-            window.location="./home"
+            localStorage.setItem('token', response.token)
+            this.signupResponseTranfer(response);
         
         })
         .catch(function(error) {

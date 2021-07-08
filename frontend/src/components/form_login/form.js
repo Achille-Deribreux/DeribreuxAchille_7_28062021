@@ -25,7 +25,11 @@ class FormLogin extends React.Component{
             password: e.target.value
         })
      }
-
+    
+     loginResponseTranfer = (response) => {
+        this.props.loginResponseTranfer(response);
+    }
+    
      handleSubmit = (e) => {
          e.preventDefault()
          const data = JSON.stringify(this.state);
@@ -42,6 +46,7 @@ class FormLogin extends React.Component{
         .then(response => response.json())
         .then((response) => {
             console.log(response)
+            this.loginResponseTranfer(response);
             localStorage.setItem('token', response.token)
             /*window.location="./home"*/
         

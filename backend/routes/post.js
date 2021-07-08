@@ -7,7 +7,7 @@ const auth = require('../middlewares/auth');
 const router = express.Router()
 
 //Routes
-router.get('/home', postCtrl.getAll);
+router.get('/home',auth, postCtrl.getAll);
 router.post('/write', postCtrl.createPost);
 
 //Export
