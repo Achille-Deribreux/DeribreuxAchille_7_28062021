@@ -78,6 +78,7 @@ class FormSignup extends React.Component{
         .then((response) => {
             console.log(response)
             localStorage.setItem('token', response.token)
+            localStorage.setItem('uid', response.userId)
             this.signupResponseTranfer(response);
         
         })

@@ -14,7 +14,11 @@ import {
     Link
   } from "react-router-dom";
 
+
+
 function Header(){
+        let uid = localStorage.getItem("uid");
+        const murUrl =  "/mur/" + uid;
     return (<Grid container alignItems="center" spacing={3} className="header"> 
                 <Grid item xs={6}>
                     <img src={logoWhite} id="logoWhite"/>
@@ -39,10 +43,11 @@ function Header(){
 
                         <Grid item xs={4}>
                             <Grid container alignContent='center'>
-                                <Grid item xs={6}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                </Grid>
-
+                                <Link to={murUrl}>
+                                    <Grid item xs={6}>
+                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                    </Grid>
+                                </Link>
                                 <Grid item xs={6}>
                                     <CancelIcon color="secondary"/>
                                 </Grid>

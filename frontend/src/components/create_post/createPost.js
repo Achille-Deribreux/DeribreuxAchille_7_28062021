@@ -16,6 +16,29 @@ class CreatePost extends React.Component {
             content : e.target.value
         })
     }
+    handleSubmit = (e) => {
+        const data = JSON.stringify(this.state);
+        let token = localStorage.getItem('token');
+        //Reset state
+        fetch("http://localhost:3000/api/post/write",{
+            method: 'POST',
+            headers: { 
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json' ,
+            'Authorization' : 'bearer ' + token
+           
+            },
+            body: data
+        })
+        .then(response => response.json())
+        .then((response) => {
+            console.log(response)
+        })
+        .catch(function(error) {
+            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+          });
+ 
+    }
 
     render(){
         return(
@@ -32,7 +55,7 @@ class CreatePost extends React.Component {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Button size="large" variant="contained" color="primary">
+                    <Button size="large" variant="contained" color="primary" onClick={this.handleSubmit}>
                         Publier
                     </Button>
                 </Grid>

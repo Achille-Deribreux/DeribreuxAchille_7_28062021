@@ -48,6 +48,7 @@ class FormLogin extends React.Component{
             console.log(response)
             this.loginResponseTranfer(response);
             localStorage.setItem('token', response.token)
+            localStorage.setItem('uid', response.userId)
             /*window.location="./home"*/
         
         })

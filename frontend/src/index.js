@@ -14,6 +14,7 @@ import Login from './containers/login';
 import Signup from './containers/signup';
 import Home from './containers/home';
 import PostCreation from './containers/PostCreation';
+import Mur from './containers/mur';
 
 
 
@@ -33,6 +34,7 @@ ReactDOM.render(
         <Route path="/login"  exact component={Login}/>
         <Route path="/home"  exact component={Home}/>
         <Route path="/create-post" exact component={PostCreation}/>
+        <Route path="/mur/" component={Mur}/>
       </Switch>
   </Router>
   </React.StrictMode>,
