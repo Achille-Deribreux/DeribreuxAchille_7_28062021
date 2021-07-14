@@ -15,6 +15,7 @@ import Signup from './containers/signup';
 import Home from './containers/home';
 import PostCreation from './containers/PostCreation';
 import Mur from './containers/mur';
+import Search from './containers/search';
 
 
 
@@ -35,6 +36,7 @@ ReactDOM.render(
         <Route path="/home"  exact component={Home}/>
         <Route path="/create-post" exact component={PostCreation}/>
         <Route path="/mur/" component={Mur}/>
+        <Route path="/search" component={Search} />
       </Switch>
   </Router>
   </React.StrictMode>,
@@ -45,3 +47,19 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+/*
+<Route path="/sign-in" render={function () {
+                    let users = isLoggedIn();
+                    if (users) {
+                        return <Redirect push to={{
+                            pathname: '/choose-domain',
+                            state: { users : users }
+                        }}/>
+                    } else {
+                       return <Login/>
+                    }
+                }}/>
+
+
+*/

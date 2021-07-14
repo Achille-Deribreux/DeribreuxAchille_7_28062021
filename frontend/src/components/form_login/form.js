@@ -59,6 +59,7 @@ class FormLogin extends React.Component{
      }
 
     render() {
+        localStorage.clear();
         return(
             <section>
                      <TypeField name="mail" type="email" libelle="Adresse mail :" value={this.state.mail} onChange={this.handleMail} />

@@ -109,3 +109,23 @@ exports.getUser= (req, res, next) => {
     })
     .catch(error => res.status(500).json({error}));
 }
+
+exports.getUsers= (req, res, next) => {
+    models.Users.findAll({
+        order: [['createdAt', 'DESC']]
+    })
+    .then((users)=> res.status(203).json(users))
+    .catch((error) => res.status(400).json({ error }));
+}
+
+exports.getUserId = (req, res, next) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const userId = jwt.verify(token,  process.env.TOKEN_KEY);
+        return res.status(200).json({userId});
+    }catch {
+        res.status(401).json({
+          error: new Error('Invalid Token!')
+        });
+    }
+}

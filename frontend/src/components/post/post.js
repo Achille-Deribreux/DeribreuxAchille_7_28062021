@@ -6,9 +6,23 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import userLogo from "../../assets/user.png";
 import likeLogo from "../../assets/like.png";
+import Buttons from "../post/parts/buttons"
 import Like from "./parts/like";
 
 class Post extends React.Component{
@@ -17,7 +31,7 @@ class Post extends React.Component{
         this.state = {
           error: null,
           isLoaded: false,
-          items: {}
+          items: {},
         };
       }
 
@@ -41,27 +55,40 @@ class Post extends React.Component{
           });
       }
     render (){
-        const { content, date, imgUrl, likes} = this.props;
+        const { content, date, imgUrl, likes, userId} = this.props;
         const  {isLoaded, items } = this.state;
       if (!isLoaded) {
       return <div>Chargement…</div>;
     } else {
         return(
             <Card>
+              <Link to={"/mur/?id="+userId}>
                 <CardHeader avatar={
-                    <Avatar>
-                        AD
-                    </Avatar>}
-                    title={items.firstname + " " + items.lastname}
-                    subheader={date}
-                >
-                </CardHeader>
+                      <Avatar>
+                        {items.firstname[0]+items.lastname[0]}
+                      </Avatar>}
+                      title={items.firstname + " " + items.lastname}
+                      subheader={date}
+                  >
+                  </CardHeader>
+              </Link>
                 <CardContent>
                     <Typography>
                         {content}
                     </Typography>
                 </CardContent>
-                    <Like likes={likes} />
+                <CardActions disableSpacing>
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton>
+                        <EditIcon />
+                  </IconButton>
+                  <IconButton>
+                        <CancelIcon />
+                  </IconButton>
+                </CardActions>
+                    
             </Card>
         )
     }

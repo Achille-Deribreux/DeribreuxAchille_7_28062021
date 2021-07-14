@@ -16,21 +16,60 @@ import {
 
 
 
-function Header(){
-        let uid = localStorage.getItem("uid");
-        const murUrl =  "/mur/" + uid;
-    return (<Grid container alignItems="center" spacing={3} className="header"> 
-                <Grid item xs={6}>
-                    <img src={logoWhite} id="logoWhite"/>
+class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          items: []
+        };
+      }
+    
+      componentDidMount() {
+        let token =localStorage.getItem('token');
+        
+        fetch("http://localhost:3000/api/auth/getUserId",{
+            headers:{
+                'Authorization' : 'bearer ' + token
+            }
+        })
+        .then(response => response.json())
+        .then((response) => {
+            this.setState({
+                isLoaded: true,
+                items: response.userId
+              });
+        })
+        .catch(function(error) {
+            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+          });
+
+       
+      }
+    render(){
+        const  {isLoaded, items } = this.state;
+        if (!isLoaded) {
+            return <div>Chargement…</div>;
+          } else {
+                const murUrl =  "/mur/?id=" + items.userId;
+                return (<Grid container alignItems="center" spacing={3} className="header"> 
+            
+                <Grid item container xs={6}>
+                    <Link to="/home">
+                        <img src={logoWhite} id="logoWhite"/>
+                    </Link>
                 </Grid> 
 
                 <Grid item xs={6}>
                     <Grid container alignContent='center' spacing={3}>
 
                         <Grid item xs={4}>
-                            <Button size="large" variant="contained" color="primary">
-                                Rechercher
-                            </Button>
+                            <Link to="/search">
+                                <Button size="large" variant="contained" color="primary">
+                                    Rechercher
+                                </Button>
+                            </Link>
                         </Grid>
 
                         <Grid item xs={4}>
@@ -43,20 +82,23 @@ function Header(){
 
                         <Grid item xs={4}>
                             <Grid container alignContent='center'>
-                                <Link to={murUrl}>
-                                    <Grid item xs={6}>
-                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                    </Grid>
-                                </Link>
                                 <Grid item xs={6}>
-                                    <CancelIcon color="secondary"/>
+                                    <Link to={murUrl}>
+                                        <Avatar  />
+                                    </Link>
+                                </Grid>
+                                
+                                <Grid item xs={6} container alignContent='center' alignItems='center'>
+                                    <Link to="/login">
+                                        <CancelIcon color="secondary"/>
+                                    </Link>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid> 
             </Grid>
-    )
+    )}}
 }
 
 export default Header;

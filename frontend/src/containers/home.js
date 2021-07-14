@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from '../components/header/header'
 import Post from '../components/post/post'
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 class Home extends React.Component{
   constructor(props) {
@@ -39,10 +41,17 @@ class Home extends React.Component{
     return (
       <div>
           <Header />
-
+          <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
+{/* Condition ici */}
           {items.map(item => (
-            <Post content={item.content} likes={item.likes} userId={item.userid} date={item.time}/>
+            
+              <Grid item xs={12} lg={4} key={item.id} >
+                <Paper>
+                <Post key = {item.id} content={item.content} likes={item.likes} userId={item.userid} date={item.time}/>
+                </Paper>
+              </Grid>
           ))}
+          </Grid>
 
       </div>
     );
