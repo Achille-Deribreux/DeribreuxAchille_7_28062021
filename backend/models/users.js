@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+     static associate(models) {
       models.Users.hasMany(models.Posts);
       models.Users.hasMany(models.Comments);
     }
@@ -21,8 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     team: DataTypes.STRING,
     isadmin: DataTypes.BOOLEAN,
-    profileurl: DataTypes.STRING,
-    coverurl: DataTypes.STRING
+    profileurl: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Users',

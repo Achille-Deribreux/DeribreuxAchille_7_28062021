@@ -16,16 +16,14 @@ module.exports = {
           key:'id'
         }
       },
-      time: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       content: {
         allowNull: false,
         type: Sequelize.TEXT
       },
+      imageUrl: {
+        type: Sequelize.STRING
+      },
       userliked: {
-        allowNull: false,
         type: Sequelize.TEXT
       },
       likes: {
