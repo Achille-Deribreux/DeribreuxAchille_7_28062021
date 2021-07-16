@@ -6,6 +6,7 @@ const postRoutes = require('./routes/post');
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const app = express();//crée une app express
 
@@ -21,7 +22,7 @@ try {
 } catch (error) {
   console.error('Unable to connect to the database:', error);
 }*/
-
+app.use(cors())
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

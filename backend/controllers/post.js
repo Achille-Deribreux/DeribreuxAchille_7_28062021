@@ -13,10 +13,15 @@ exports.getAll = (req, res, next)=>{
 }
 
 exports.createPost = (req, res, next)=>{
+    console.log("filename",req.file.filename)
+    console.log("content",req.body.content)
+
+
+
     let userId = utils.getUserId(req.headers.authorization)
+    console.log(userId);
     let content = req.body.content;
     //attachement à faire
-    console.log(userId);
     models.Users.findOne({
         where: { id: userId }
     })
@@ -24,11 +29,12 @@ exports.createPost = (req, res, next)=>{
         const newPost = models.Posts.create({
             UserId : userId,
             content: content,
+            imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}` 
         })
         .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ? 
-                    .catch(error => {
-                        res.status(500).json({ error })
-                    })
+        .catch(error => {
+            res.status(500).json({ error })
+        })
 
     })
     .catch(err => { res.status(500).json({ err }) });

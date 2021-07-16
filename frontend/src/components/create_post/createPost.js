@@ -20,7 +20,7 @@ class CreatePost extends React.Component {
     }
 
     handleFileChange = (e) => {
-        console.log(e.target.value)
+        console.log(e.target.files[0])
         this.setState({
             file : e.target.files[0]
         })
@@ -30,10 +30,22 @@ class CreatePost extends React.Component {
         data.append("content", this.state.content)
         data.append("file", this.state.file)
         let token = localStorage.getItem('token');
-
+    
+        fetch("http://localhost:3000/api/post/write", {
+            method: 'POST',
+            headers:{
+                'Authorization' : 'bearer ' + token
+            },
+            body: data
+    })
+    .then((res) => console.log(res))
+    .catch((err)=>console.log(err));
+    /*
+        
         Axios.post("http://localhost:3000/api/post/write", data)
         .then((res) => console.log(res))
         .catch((err)=>console.log(err));
+    */
         //Reset state
     }
     
