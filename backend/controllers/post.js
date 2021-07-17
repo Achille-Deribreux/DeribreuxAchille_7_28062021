@@ -13,13 +13,7 @@ exports.getAll = (req, res, next)=>{
 }
 
 exports.createPost = (req, res, next)=>{
-    console.log("filename",req.file.filename)
-    console.log("content",req.body.content)
-
-
-
     let userId = utils.getUserId(req.headers.authorization)
-    console.log(userId);
     let content = req.body.content;
     //attachement à faire
     models.Users.findOne({
@@ -29,7 +23,7 @@ exports.createPost = (req, res, next)=>{
         const newPost = models.Posts.create({
             UserId : userId,
             content: content,
-            imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}` 
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         })
         .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ? 
         .catch(error => {
@@ -51,3 +45,5 @@ exports.getUserPosts = (req, res, next)=>{
     })
     .catch((error) => res.status(400).json({ error }));
 }
+
+//http://localhost:3000/images/tabasco-sauce-piquante-originale.jpeg1623314509988.jpg

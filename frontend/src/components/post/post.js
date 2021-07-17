@@ -17,7 +17,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, 
+  useHistory
 } from "react-router-dom";
 
 import userLogo from "../../assets/user.png";
@@ -34,7 +35,7 @@ class Post extends React.Component{
           items: {},
         };
       }
-
+   
       componentDidMount(){
         let token = localStorage.getItem('token');
         const {userId}=this.props;
@@ -77,6 +78,9 @@ class Post extends React.Component{
                         {content}
                     </Typography>
                 </CardContent>
+                <CardMedia
+                    image={imgUrl}
+                  />
                 <CardActions disableSpacing>
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />

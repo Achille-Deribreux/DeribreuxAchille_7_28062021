@@ -16,7 +16,7 @@ import Home from './containers/home';
 import PostCreation from './containers/PostCreation';
 import Mur from './containers/mur';
 import Search from './containers/search';
-
+import ModifyPost from './containers/postModification';
 
 
 
@@ -37,6 +37,7 @@ ReactDOM.render(
         <Route path="/create-post" exact component={PostCreation}/>
         <Route path="/mur/" component={Mur}/>
         <Route path="/search" component={Search} />
+        <Route path="/update" component={ModifyPost} />
       </Switch>
   </Router>
   </React.StrictMode>,

@@ -1,17 +1,19 @@
 import React from 'react';
 import Header from '../components/header/header'
-import SearchCompo from '../components/searchPeople/searchcompo'
+import ModifyPost from '../components/modifyPost'
 
-class Search extends React.Component{
 
+
+class PostModification extends React.Component {
     render(){
         return(
             <div>
                 <Header />
-                <SearchCompo />
+                <ModifyPost />
             </div>
+            
         )
     }
 }
 
-export default Search;
+export default PostModification;

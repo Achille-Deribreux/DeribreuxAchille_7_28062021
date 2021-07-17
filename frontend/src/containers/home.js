@@ -39,6 +39,7 @@ class Home extends React.Component{
       return <div>Chargement…</div>;
     } else {
     return (
+     
       <div>
           <Header />
           <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
@@ -47,7 +48,7 @@ class Home extends React.Component{
             
               <Grid item xs={12} lg={4} key={item.id} >
                 <Paper>
-                <Post key = {item.id} content={item.content} likes={item.likes} userId={item.userid} date={item.time}/>
+                <Post key = {item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                 </Paper>
               </Grid>
           ))}
