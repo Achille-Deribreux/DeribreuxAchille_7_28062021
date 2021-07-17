@@ -58,6 +58,7 @@ class Post extends React.Component{
     render (){
         const { content, date, imgUrl, likes, userId} = this.props;
         const  {isLoaded, items } = this.state;
+        console.log(imgUrl);
       if (!isLoaded) {
       return <div>Chargement…</div>;
     } else {
@@ -79,8 +80,9 @@ class Post extends React.Component{
                     </Typography>
                 </CardContent>
                 <CardMedia
-                    image={imgUrl}
-                  />
+                component="img"
+         image={imgUrl}
+      />
                 <CardActions disableSpacing>
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
