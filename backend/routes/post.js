@@ -9,8 +9,12 @@ const router = express.Router()
 
 //Routes
 router.get('/home',auth, postCtrl.getAll);
+router.post('/update', multer, postCtrl.modifyPost)
 router.post('/write', multer, postCtrl.createPost);
-router.get('/:id', postCtrl.getUserPosts)
+router.delete('/delete', multer,postCtrl.deletePost)
+router.get('/getpost/:id', postCtrl.getOnePost);
+router.get('/:id', postCtrl.getUserPosts);
+
 
 //Export
 module.exports = router;

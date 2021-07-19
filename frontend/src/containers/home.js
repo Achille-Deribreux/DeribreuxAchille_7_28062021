@@ -48,7 +48,7 @@ class Home extends React.Component{
             
               <Grid item xs={12} lg={4} key={item.id} >
                 <Paper>
-                <Post key = {item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                <Post key = {item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                 </Paper>
               </Grid>
           ))}

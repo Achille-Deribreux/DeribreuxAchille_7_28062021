@@ -18,7 +18,7 @@ import {
   Switch,
   Route,
   Link, 
-  useHistory
+  withRouter
 } from "react-router-dom";
 
 import userLogo from "../../assets/user.png";
@@ -29,13 +29,41 @@ import Like from "./parts/like";
 class Post extends React.Component{
     constructor(props) {
         super(props);
+        
         this.state = {
           error: null,
           isLoaded: false,
           items: {},
         };
       }
-   
+      
+      editRedirect = () => {
+        const {id} = this.props;
+        this.props.history.push("/update/?id="+id);
+      }
+
+      deletePost = () => {
+        const deleteBody = new FormData();
+        const {userId,id} = this.props;
+        const test = "ça passe !!"
+
+        console.log("id",this.props.id)
+        console.log("author",this.props.userId)
+        console.log('test', test);
+        deleteBody.append('postId', this.props.id);
+        deleteBody.append('author', userId);
+        deleteBody.append('test', test);
+        fetch("http://localhost:3000/api/post/delete",{
+          method:'DELETE',
+            headers:{
+              'Authorization' : 'bearer ' + localStorage.getItem('token')
+            },
+            body : deleteBody
+          })
+          .then((res)=>console.log(res))
+          .catch((res)=>console.log(res))
+      }
+
       componentDidMount(){
         let token = localStorage.getItem('token');
         const {userId}=this.props;
@@ -58,7 +86,6 @@ class Post extends React.Component{
     render (){
         const { content, date, imgUrl, likes, userId} = this.props;
         const  {isLoaded, items } = this.state;
-        console.log(imgUrl);
       if (!isLoaded) {
       return <div>Chargement…</div>;
     } else {
@@ -87,10 +114,10 @@ class Post extends React.Component{
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={this.editRedirect}>
                         <EditIcon />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={this.deletePost}>
                         <CancelIcon />
                   </IconButton>
                 </CardActions>
@@ -101,4 +128,4 @@ class Post extends React.Component{
 }
 }
 
-export default Post;
+export default withRouter(Post);
