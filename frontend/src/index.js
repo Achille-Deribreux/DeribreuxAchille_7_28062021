@@ -17,7 +17,7 @@ import PostCreation from './containers/PostCreation';
 import Mur from './containers/mur';
 import Search from './containers/search';
 import ModifyPost from './containers/postModification';
-
+import ProfileUpdate from './containers/profileUpdate';
 
 
 
@@ -38,6 +38,7 @@ ReactDOM.render(
         <Route path="/mur/" component={Mur}/>
         <Route path="/search" component={Search} />
         <Route path="/update" component={ModifyPost} />
+        <Route path="/profileUpdate" component={ProfileUpdate} />
       </Switch>
   </Router>
   </React.StrictMode>,

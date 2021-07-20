@@ -2,7 +2,16 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Avatar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link, 
+  withRouter
+} from "react-router-dom";
 
 class ProfileHeader extends React.Component{
     constructor(props) {
@@ -34,6 +43,10 @@ class ProfileHeader extends React.Component{
             alert(err) // Affiche l'erreur dans une alert si erreur 
           });
       }
+      editRedirect = () => {
+        const {userId} = this.props;
+        this.props.history.push("/profileUpdate/?id="+userId);
+      }
       render(){
         const  {isLoaded, items } = this.state;
           if (!isLoaded) {
@@ -46,10 +59,15 @@ class ProfileHeader extends React.Component{
                         {items.user.firstname[0]+items.user.lastname[0]}
                         </Avatar>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={6}>
                     <Typography variant="h2" gutterBottom>
                     {items.user.firstname+" "+items.user.lastname}
                     </Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                    <IconButton onClick={this.editRedirect}>
+                        <EditIcon />
+                  </IconButton>
                     </Grid>
                 </Grid>
             )
@@ -57,4 +75,4 @@ class ProfileHeader extends React.Component{
     }
 }
 
-export default ProfileHeader;
+export default withRouter(ProfileHeader);

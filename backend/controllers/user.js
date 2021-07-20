@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require ('../models');
+const utils  = require('../utils/utils');
 require('dotenv').config();
 
 //Méthode création de compte
@@ -13,7 +14,7 @@ exports.signup = (req, res, next)=>{
     let password = req.body.password;
     let lastname = req.body.nom;
     let team = req.body.team;
-
+    let isAdmin = req.body.isAdmin;
 //Vérifications à introduire
     if (mail == null || password == null ) {
         res.status(400).json({ error: 'il manque un paramètre' })
@@ -28,13 +29,17 @@ exports.signup = (req, res, next)=>{
             bcrypt.hash(password, 10)
             .then((hash) => {
                 // Création de l'user
+                console.log("req",req.body.isAdmin);
+                console.log(isAdmin);
+                console.log("on bloque avant le enwUser")
                 const newUser = models.Users.create({
                     mail: mail,
                     firstname: firstname,
                     password: hash,
                     lastname:lastname,
                     team:team,
-                    isadmin : false
+                    isadmin : isAdmin,
+                    profileurl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                 })
                     .then(newUser => { res.status(201).json({
                          'id': newUser.id,
@@ -128,4 +133,32 @@ exports.getUserId = (req, res, next) => {
           error: new Error('Invalid Token!')
         });
     }
+}
+
+exports.updateUser = (req, res, next) => {
+    console.log("méthode appelée")
+    let id = utils.getUserId(req.headers.authorization);
+    models.Users.findOne({
+        where: { id: id }
+    })
+    .then(user => {
+        console.log("user trouvé !!")
+        
+            models.Users.update(
+                    { 
+                    mail : req.body.mail,
+                    firstname : req.body.prenom,
+                    lastname: req.body.nom,
+                    //password : BCRYPT
+                    team: req.body.team,
+                    isAdmin: req.body.isAdmin
+                    //profileurl
+                    },
+                    { where: { id: id } }
+                )
+                .then(() => res.status(200).json("Réussi"))
+                .catch(err => res.status(500).json(err))
+    }
+    )
+    .catch(error => res.status(500).json(error));
 }

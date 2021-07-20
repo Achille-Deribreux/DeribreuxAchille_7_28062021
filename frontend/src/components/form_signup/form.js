@@ -14,7 +14,9 @@ class FormSignup extends React.Component{
             nom:'',
             mail : '',
             password:'',
-            team:''
+            team:'',
+            isAdmin:'',
+            file:''
         }
     }
 
@@ -45,10 +47,21 @@ class FormSignup extends React.Component{
         })
         console.log(e.target.value)
     }
-
+    handleFileChange = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            file : e.target.files[0]
+        })
+    }
     handleTeam = (e) => {
         this.setState({
             team: e.target.value
+        })
+        console.log(e.target.value)
+    }
+    handleIsAdmin = (e) => {
+        this.setState({
+            isAdmin: e.target.value
         })
         console.log(e.target.value)
     }
@@ -56,22 +69,29 @@ class FormSignup extends React.Component{
         this.props.signupResponseTranfer(response);
     }
     handleSubmit = (e) => {
-        e.preventDefault()
-        const data = JSON.stringify(this.state);
-        console.log(data)
+        //const data = JSON.stringify(this.state);
+        
+        const data = new FormData();
+        data.append("prenom",this.state.prenom);
+        data.append("nom",this.state.nom);
+        data.append("mail",this.state.mail);
+        data.append("password",this.state.password);
+        data.append("team",this.state.team);
+        data.append("isAdmin",this.state.isAdmin);
+        if (this.state.file !== ''){
+        data.append("file",this.state.file);
+        }
         this.setState({
-            prenom:'',
+           prenom:'',
             nom:'',
             mail : '',
             password:'',
-            team:''
+            team:'',
+            isAdmin:'',
+            file:''
         })
         fetch("http://localhost:3000/api/auth/signup",{
             method: 'POST',
-            headers: { 
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json' 
-            },
             body: data
         })
         .then(response => response.json())
@@ -93,15 +113,24 @@ class FormSignup extends React.Component{
                     <Field name="nom" libelle="Nom :" value={this.state.nom} onChange={this.handleNom}/>
                     <TypeField name="mail" type="email" libelle="Adresse mail :" value={this.state.mail} onChange={this.handleMail} />
                     <TypeField name="password" type="password" libelle="Mot De Passe :" value={this.state.password} onChange={this.handlePass} />
-                    
+                    <div>
+                        <label htmlFor="droits"> Droits :</label>
+                        <select value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
+                            <option value="false" selected>Classique</option>
+                            <option value="true">Administrateur</option>
+                        </select>
+                    </div>
                     <div>
                         <label htmlFor="departement"> Département :</label>
                         <select value={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
-                            <option value="-">-</option>
-                            <option value="dev">Développement</option>
+                            <option value="dev" selected>Développement</option>
                             <option value="hr">Ressources Humaines</option>
                             <option value="sales">Ventes</option>
                         </select>
+                    </div>
+                    <div>
+                    <label htmlFor="file"> Photo de profil :</label>
+                    <input type="file" id="file" onChange={this.handleFileChange}/>
                     </div>
                     <div>
                         <Button variant="contained" color="secondary" onClick={this.handleSubmit}>

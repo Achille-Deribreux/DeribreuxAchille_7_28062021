@@ -33,6 +33,7 @@ class SearchCompo extends React.Component{
       }
       render(){
         const  {isLoaded, items } = this.state;
+        //ICI faire 3 item.map avec conditions pour afficher par branche
           if (!isLoaded) {
           return <div>Chargement…</div>;
         } else {
