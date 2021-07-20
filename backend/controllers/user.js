@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require ('../models');
 const utils  = require('../utils/utils');
+const fs = require('fs');
 require('dotenv').config();
 
 //Méthode création de compte
@@ -136,14 +137,11 @@ exports.getUserId = (req, res, next) => {
 }
 
 exports.updateUser = (req, res, next) => {
-    console.log("méthode appelée")
     let id = utils.getUserId(req.headers.authorization);
     models.Users.findOne({
         where: { id: id }
     })
-    .then(user => {
-        console.log("user trouvé !!")
-        
+    .then(user => {      
             models.Users.update(
                     { 
                     mail : req.body.mail,
@@ -161,4 +159,37 @@ exports.updateUser = (req, res, next) => {
     }
     )
     .catch(error => res.status(500).json(error));
+}
+
+exports.deleteUser = (req, res, next) => {
+    let id = utils.getUserId(req.headers.authorization);
+    models.Users.findOne({
+        where: { id: id }
+    })
+    .then((user) => {
+        if (user && (user.isAdmin == true || user.id == req.body.accountId)) {
+            if (user.profileurl) {
+                const filename = user.profileurl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => {
+                    models.Users
+                        .destroy({
+                            where: { id: req.body.accountId }
+                        })
+                        .then(() => res.end())
+                        .catch(err => res.status(500).json(err))
+                })
+            }
+            else {
+                models.Users
+                        .destroy({
+                            where: { id: req.body.accountId }
+                        })
+                        .then(() => res.end())
+                        .catch(err => res.status(500).json(err))
+            }  
+        }
+        else {
+            res.status(401).json({ error: 'Utilisateur non autorisé à modifier ce post' })
+        }})
+    .catch(err => res.status(500).json(err))
 }

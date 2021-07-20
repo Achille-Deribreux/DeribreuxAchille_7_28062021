@@ -45,14 +45,10 @@ class Post extends React.Component{
       deletePost = () => {
         const deleteBody = new FormData();
         const {userId,id} = this.props;
-        const test = "ça passe !!"
-
-        console.log("id",this.props.id)
-        console.log("author",this.props.userId)
-        console.log('test', test);
+        
         deleteBody.append('postId', this.props.id);
         deleteBody.append('author', userId);
-        deleteBody.append('test', test);
+  
         fetch("http://localhost:3000/api/post/delete",{
           method:'DELETE',
             headers:{

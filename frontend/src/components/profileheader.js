@@ -4,6 +4,7 @@ import { Avatar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import {
   BrowserRouter as Router,
@@ -47,6 +48,22 @@ class ProfileHeader extends React.Component{
         const {userId} = this.props;
         this.props.history.push("/profileUpdate/?id="+userId);
       }
+      deletePost = () => {
+        const deleteBody = new FormData();
+        const {userId} = this.props;
+        deleteBody.append('accountId', userId);
+  
+        fetch("http://localhost:3000/api/auth/delete",{
+          method:'DELETE',
+            headers:{
+              'Authorization' : 'bearer ' + localStorage.getItem('token')
+            },
+            body : deleteBody
+          })
+          .then((res)=> localStorage.clear())
+          .catch((res)=>console.log(res))
+      }
+
       render(){
         const  {isLoaded, items } = this.state;
           if (!isLoaded) {
@@ -67,6 +84,9 @@ class ProfileHeader extends React.Component{
                     <Grid item xs={2}>
                     <IconButton onClick={this.editRedirect}>
                         <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={this.deletePost}>
+                        <CancelIcon />
                   </IconButton>
                     </Grid>
                 </Grid>
