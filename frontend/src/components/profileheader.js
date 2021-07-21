@@ -60,7 +60,10 @@ class ProfileHeader extends React.Component{
             },
             body : deleteBody
           })
-          .then((res)=> localStorage.clear())
+          .then((res)=> {
+            localStorage.clear()
+            this.props.history.push("/login");
+          })
           .catch((res)=>console.log(res))
       }
 
