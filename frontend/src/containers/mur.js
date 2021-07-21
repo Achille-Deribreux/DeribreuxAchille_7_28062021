@@ -3,7 +3,8 @@ import Header from '../components/header/header'
 import Post from '../components/post/post'
 import ProfileHeader from '../components/profileheader'
 import Grid from '@material-ui/core/Grid';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Home extends React.Component{
     constructor(props) {
       super(props);
@@ -43,11 +44,22 @@ class Home extends React.Component{
       } else {
       return (
         <div>
+          <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss={false}
+draggable={false}
+pauseOnHover
+/>
             <Header />
             <ProfileHeader userId={id} />
             <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
             {items.map(item => (
-              <Grid item xs={12} md={4} lg={3} key={item.id} >
+              <Grid item xs={10} key={item.id} >
               <Post key = {item.id} id={item.id} imgUrl={item.imageUrl} content={item.content} likes={item.likes} userId={item.userid} date={item.time}/>
               </Grid>
             ))}

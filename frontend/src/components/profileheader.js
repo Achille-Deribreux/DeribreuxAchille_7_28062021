@@ -73,6 +73,7 @@ class ProfileHeader extends React.Component{
           return <div>Chargement…</div>;
         } else {
             return(
+              <div style={{backgroundColor: "grey"}} >
                 <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
                     <Grid item xs={4}>
                         <Avatar>
@@ -93,6 +94,7 @@ class ProfileHeader extends React.Component{
                   </IconButton>
                     </Grid>
                 </Grid>
+                </div>
             )
       }
     }

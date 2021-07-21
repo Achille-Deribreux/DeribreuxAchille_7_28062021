@@ -4,6 +4,8 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import {
     BrowserRouter as Router,
@@ -15,6 +17,9 @@ import {
   import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+
+import Alert from '@material-ui/lab/Alert'; 
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 class ModifyPost extends React.Component {
@@ -81,12 +86,35 @@ class ModifyPost extends React.Component {
             },
             body: data
     })
-    .then((res) => console.log(res.data))
+    .then(response => response.json())
+    .then((res) => {
+        toast.success('Post Modifié !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            });
+        this.props.history.push("/mur/?id="+res.userId);
+    })
     .catch((err)=>console.log(err));
     }
 
     render(){
         return(<div>
+            <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss={false}
+draggable={false}
+pauseOnHover
+/>
 <Card>
                 <CardContent>
                     <Typography>
@@ -111,4 +139,4 @@ class ModifyPost extends React.Component {
     }
 }
 
-export default ModifyPost;
+export default withRouter(ModifyPost);

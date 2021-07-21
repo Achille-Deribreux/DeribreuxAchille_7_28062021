@@ -46,7 +46,7 @@ class Home extends React.Component{
 {/* Condition ici */}
           {items.map(item => (
             
-              <Grid item xs={12} lg={4} key={item.id} >
+              <Grid item xs={12} key={item.id} >
                 <Paper>
                 <Post key = {item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                 </Paper>

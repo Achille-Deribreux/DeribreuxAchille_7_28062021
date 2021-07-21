@@ -73,7 +73,7 @@ exports.modifyPost = (req, res, next ) => {
                     },
                     { where: { id: req.body.postId } }
                 )
-                .then(() => res.end())
+                .then(() => res.status(201).json({ 'userId': id}))
                 .catch(err => res.status(500).json(err))
         }
         else {

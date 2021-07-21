@@ -116,14 +116,14 @@ class FormSignup extends React.Component{
                     <div>
                         <label htmlFor="droits"> Droits :</label>
                         <select value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
-                            <option value="false" selected>Classique</option>
+                            <option value="false" defaultValue>Classique</option>
                             <option value="true">Administrateur</option>
                         </select>
                     </div>
                     <div>
                         <label htmlFor="departement"> Département :</label>
                         <select value={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
-                            <option value="dev" selected>Développement</option>
+                            <option value="dev" defaultValue>Développement</option>
                             <option value="hr">Ressources Humaines</option>
                             <option value="sales">Ventes</option>
                         </select>

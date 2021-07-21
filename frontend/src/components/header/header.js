@@ -13,6 +13,16 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import { IconButton } from '@material-ui/core';
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 
 
@@ -53,7 +63,44 @@ class Header extends React.Component {
             return <div>Chargement…</div>;
           } else {
                 const murUrl =  "/mur/?id=" + items.userId;
-                return (<Grid container alignItems="center" spacing={3} className="header"> 
+                return (
+                /*
+                    <AppBar position="static">
+                        <Toolbar>
+
+                            <IconButton>
+                                <Link to="/home">
+                                    <img src={logoWhite} id="logoWhite"/>
+                                </Link>
+                            </IconButton>
+
+                            <IconButton>
+                                <Link to="/create-post">
+                                    <Button size="large" variant="contained" color="primary">
+                                        Publier
+                                    </Button>
+                                </Link>
+                            </IconButton>
+
+                            <IconButton>
+                            <Link to="/search">
+                                <Button size="large" variant="contained" color="primary">
+                                    Rechercher
+                                </Button>
+                            </Link>
+                            </IconButton>
+
+                            <IconButton>
+                            <       Link to={murUrl}>
+                                        <AccountCircle />
+                                    </Link>
+                            </IconButton>
+                        </Toolbar>
+                    </AppBar>
+                */
+                
+                
+                <Grid container alignItems="center" spacing={3} className="header"> 
             
                 <Grid item container xs={6}>
                     <Link to="/home">
@@ -84,7 +131,7 @@ class Header extends React.Component {
                             <Grid container alignContent='center'>
                                 <Grid item xs={6}>
                                     <Link to={murUrl}>
-                                        <Avatar  />
+                                        <Avatar />
                                     </Link>
                                 </Grid>
                                 
