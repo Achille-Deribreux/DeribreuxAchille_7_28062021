@@ -48,7 +48,7 @@ class Home extends React.Component{
             <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
             {items.map(item => (
               <Grid item xs={12} md={4} lg={3} key={item.id} >
-              <Post key = {item.id} id={item.id} content={item.content} likes={item.likes} userId={item.userid} date={item.time}/>
+              <Post key = {item.id} id={item.id} imgUrl={item.imageUrl} content={item.content} likes={item.likes} userId={item.userid} date={item.time}/>
               </Grid>
             ))}
              </Grid>
