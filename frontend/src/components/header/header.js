@@ -1,30 +1,9 @@
 import React from 'react';
 import "./header.css";
-import logoWhite from "../../assets/icon-left-font-monochrome-white.png";
-import userLogo from "../../assets/user.png";
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Container, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
 import Avatar from '@material-ui/core/Avatar';
-import CancelIcon from '@material-ui/icons/Cancel';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
-import { IconButton } from '@material-ui/core';
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-
-
+import logo from '../../assets/icon-left-font-monochrome-white.svg'
+import Chip from '@material-ui/core/Chip';
 
 class Header extends React.Component {
     constructor(props) {
@@ -63,51 +42,47 @@ class Header extends React.Component {
             return <div>Chargement…</div>;
           } else {
                 const murUrl =  "/mur/?id=" + items.userId;
-                return (
-                /*
-                    <AppBar position="static">
-                        <Toolbar>
+                return (<Navbar bg="dark" expand="lg">
+                <Container>
+                <Navbar.Brand href="#home">
+                                <img
+                                alt=""
+                                src={logo}
+                                width="250"
+                                height="100"
+                                className="d-inline-block align-top"
+                                /></Navbar.Brand>
+                  
+                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                  <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                      <Nav.Link href="#home"> <Button variant="primary">Primary</Button></Nav.Link>
+                      <Nav.Link href="#link"><Button variant="secondary">Secondary</Button></Nav.Link>
+                      <Nav.Link href="#link"><Avatar>AD</Avatar></Nav.Link>
+                    </Nav>
+                  </Navbar.Collapse>
+                </Container>
+              </Navbar>
+/*
 
-                            <IconButton>
-                                <Link to="/home">
-                                    <img src={logoWhite} id="logoWhite"/>
-                                </Link>
-                            </IconButton>
+ <Navbar.Brand href="#home">
+                                <img
+                                alt=""
+                                src={logo}
+                                width="300"
+                                height="100"
+                                className="d-inline-block align-top"
+                                />
 
-                            <IconButton>
-                                <Link to="/create-post">
-                                    <Button size="large" variant="contained" color="primary">
-                                        Publier
-                                    </Button>
-                                </Link>
-                            </IconButton>
-
-                            <IconButton>
-                            <Link to="/search">
-                                <Button size="large" variant="contained" color="primary">
-                                    Rechercher
-                                </Button>
-                            </Link>
-                            </IconButton>
-
-                            <IconButton>
-                            <       Link to={murUrl}>
-                                        <AccountCircle />
-                                    </Link>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
-                */
-                
-                
+                /*                
                 <Grid container alignItems="center" spacing={3} className="header"> 
             
-                <Grid item container xs={6}>
+                <Grid item container xs={4}>
                     <Link to="/home">
                         <img src={logoWhite} id="logoWhite"/>
                     </Link>
                 </Grid> 
-
+                
                 <Grid item xs={6}>
                     <Grid container alignContent='center' spacing={3}>
 
@@ -130,7 +105,7 @@ class Header extends React.Component {
                         <Grid item xs={4}>
                             <Grid container alignContent='center'>
                                 <Grid item xs={6}>
-                                    <Link to={murUrl}>
+                                    <Link  to={murUrl}>
                                         <Avatar />
                                     </Link>
                                 </Grid>
@@ -144,7 +119,7 @@ class Header extends React.Component {
                         </Grid>
                     </Grid>
                 </Grid> 
-            </Grid>
+            </Grid>*/
     )}}
 }
 
