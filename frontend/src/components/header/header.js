@@ -9,7 +9,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from "@material-ui/core/styles";
 import CreateIcon from '@material-ui/icons/Create';
 import CancelIcon from '@material-ui/icons/Cancel';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link, 
+    withRouter
+  } from "react-router-dom";
 
+  
 const WhiteTextTypography = withStyles({
     root: {
       color: "#FFFFFF",
@@ -28,10 +36,10 @@ class Header extends React.Component {
         };
       }
     
-      componentDidMount() {
+    componentDidMount() {
         let token =localStorage.getItem('token');
         
-        fetch("http://localhost:3000/api/auth/getUserId",{
+        fetch("http://localhost:3000/api/auth/1",{
             headers:{
                 'Authorization' : 'bearer ' + token
             }
@@ -40,25 +48,48 @@ class Header extends React.Component {
         .then((response) => {
             this.setState({
                 isLoaded: true,
-                items: response.userId
+                items: response.user
               });
         })
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           });
+    }
 
+    searchRedirect = ()  => {
+        this.props.history.push("/search")
+    }
+
+    postRedirect = ()  => {
+        this.props.history.push("/create-post")
+    }
+
+    profileRedirect = ()  => {
+        this.props.history.push("/mur?id="+this.state.items.id)
+    }
+
+    homeRedirect = ()  => {
+        this.props.history.push("/home")
+    }
+
+    disconnect = ()  => {
+        this.props.history.push("/login")
+    }
        
-      }
+
+
     render(){
         const  {isLoaded, items } = this.state;
         if (!isLoaded) {
             return <div>Chargement…</div>;
           } else {
-                const murUrl =  "/mur/?id=" + items.userId;
+                //const murUrl =  "/mur/?id=" + items.userId;
+                const murUrl =  "/mur/?id="
                 return (
-                <Navbar bg="dark" expand="lg" >
+                <Navbar bg="dark" expand="lg" variant="dark">
                     <Container>
-                    <Navbar.Brand href="#home">
+                        <Navbar.Brand>
+                            <IconButton onClick={this.homeRedirect}>
                                         <img
                                         alt=""
                                         src={logo}
@@ -66,53 +97,48 @@ class Header extends React.Component {
                                         height="100"
                                         className="d-inline-block align-top"
                                         />
+                            </IconButton>
                         </Navbar.Brand>
                     
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="m-auto ">
                                 <Nav.Link> 
-                                    <Button variant="contained">   
-                                        <IconButton>
+                                        <IconButton onClick={this.searchRedirect}>
                                             <SearchIcon style={{ color: 'FFFFFF' }} /> 
                                             <WhiteTextTypography variant="body1">
                                                 Rechercher
                                             </WhiteTextTypography>
                                         </IconButton>
-                                    </Button>
                                 </Nav.Link>
 
-                                <Nav.Link href="#link">
-                                    <Button variant="contained">   
-                                        <IconButton>
+                                <Nav.Link>
+                                        <IconButton onClick={this.postRedirect}>
                                             <CreateIcon style={{ color: 'FFFFFF' }} /> 
                                             <WhiteTextTypography variant="body1">
                                                 Publier
                                             </WhiteTextTypography>
                                         </IconButton>
-                                    </Button>
                                 </Nav.Link>
 
-                                <Nav.Link href="#link">
-                                    <IconButton>
-                                    <Avatar>AD</Avatar>
+                                <Nav.Link>
+                                    <IconButton onClick={this.profileRedirect}>
+                                    <Avatar src={items.profileurl} alt={items.firstname[0]+items.lastname[0]}></Avatar>
                                     <WhiteTextTypography variant="body2">
-                                        {"Dynamic Name"}
+                                        {items.firstname + " " + items.lastname}
                                     </WhiteTextTypography>
                                     </IconButton>
                                 </Nav.Link>
 
-                            <Nav.Link href="#link">
-                                <Button variant="contained">
-                                    <IconButton>
-                                        <CancelIcon style={{ color: 'red' }} /> 
-                                        <WhiteTextTypography variant="body2">
-                                                Déconnexion
-                                            </WhiteTextTypography>
-                                    </IconButton>
-                                </Button>
-                            </Nav.Link>
-
+                                <Nav.Link href="#link">
+                                        <IconButton onClick={this.disconnect}>
+                                            <CancelIcon style={{ color: 'red' }} /> 
+                                            <WhiteTextTypography variant="body2">
+                                                    Déconnexion
+                                                </WhiteTextTypography>
+                                        </IconButton>
+                                </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -177,4 +203,4 @@ class Header extends React.Component {
     )}}
 }
 
-export default Header;
+export default withRouter(Header);
