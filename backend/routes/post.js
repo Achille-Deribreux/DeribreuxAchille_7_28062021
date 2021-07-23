@@ -8,7 +8,7 @@ const multer = require ('../middlewares/multer-config');
 const router = express.Router()
 
 //Routes
-router.get('/home',auth, postCtrl.getAll);
+router.get('/home',postCtrl.getAll);
 router.post('/update', multer, postCtrl.modifyPost)
 router.post('/write', multer, postCtrl.createPost);
 router.delete('/delete', multer,postCtrl.deletePost)
