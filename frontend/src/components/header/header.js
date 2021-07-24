@@ -1,6 +1,13 @@
+// HEADER PRINCIPAL, une fois connecté
+
+//Imports 
 import React from 'react';
-import "./header.css";
+import "./header.css"; //A dégager 
+
+//Imports Bootstrap
 import { Container, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
+
+//Imports Material UI
 import Avatar from '@material-ui/core/Avatar';
 import logo from '../../assets/icon-left-font-monochrome-white.svg'
 import Chip from '@material-ui/core/Chip';
@@ -9,6 +16,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from "@material-ui/core/styles";
 import CreateIcon from '@material-ui/icons/Create';
 import CancelIcon from '@material-ui/icons/Cancel';
+
+//Import react-router
 import {
     BrowserRouter as Router,
     Switch,
@@ -17,7 +26,8 @@ import {
     withRouter
   } from "react-router-dom";
 
-  
+
+//Texte Blanc pour les items header 
 const WhiteTextTypography = withStyles({
     root: {
       color: "#FFFFFF",
@@ -26,6 +36,7 @@ const WhiteTextTypography = withStyles({
   })(Typography);
 
 
+  //Composant Header 
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -36,9 +47,9 @@ class Header extends React.Component {
         };
       }
     
+    //Appel API
     componentDidMount() {
         let token =localStorage.getItem('token');
-        
         fetch("http://localhost:3000/api/auth/1",{
             headers:{
                 'Authorization' : 'bearer ' + token
@@ -56,6 +67,7 @@ class Header extends React.Component {
           });
     }
 
+    //Redirections vers les pages
     searchRedirect = ()  => {
         this.props.history.push("/search")
     }
@@ -143,63 +155,6 @@ class Header extends React.Component {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-/*
-
- <Navbar.Brand href="#home">
-                                <img
-                                alt=""
-                                src={logo}
-                                width="300"
-                                height="100"
-                                className="d-inline-block align-top"
-                                />
-
-                /*                
-                <Grid container alignItems="center" spacing={3} className="header"> 
-            
-                <Grid item container xs={4}>
-                    <Link to="/home">
-                        <img src={logoWhite} id="logoWhite"/>
-                    </Link>
-                </Grid> 
-                
-                <Grid item xs={6}>
-                    <Grid container alignContent='center' spacing={3}>
-
-                        <Grid item xs={4}>
-                            <Link to="/search">
-                                <Button size="large" variant="contained" color="primary">
-                                    Rechercher
-                                </Button>
-                            </Link>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <Link to="/create-post">
-                                <Button size="large" variant="contained" color="primary">
-                                    Publier
-                                </Button>
-                            </Link>
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <Grid container alignContent='center'>
-                                <Grid item xs={6}>
-                                    <Link  to={murUrl}>
-                                        <Avatar />
-                                    </Link>
-                                </Grid>
-                                
-                                <Grid item xs={6} container alignContent='center' alignItems='center'>
-                                    <Link to="/login">
-                                        <CancelIcon color="secondary"/>
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid> 
-            </Grid>*/
     )}}
 }
 

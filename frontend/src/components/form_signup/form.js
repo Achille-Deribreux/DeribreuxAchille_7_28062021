@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import Field from '../formItems/field'
 import TypeField from '../formItems/typeField'
 
+//Imports Bootstrap
+import { Container, Row, Col, Form, FormGroup, FormControl, FloatingLabel } from 'react-bootstrap';
 
 class FormSignup extends React.Component{
     constructor(props){
@@ -107,38 +109,64 @@ class FormSignup extends React.Component{
     }
     render(){ 
         return(
-            <section>
-                <form>
-                    <Field name="prenom" libelle="Prénom : " value={this.state.prenom} onChange={this.handlePrenom}/>
-                    <Field name="nom" libelle="Nom :" value={this.state.nom} onChange={this.handleNom}/>
-                    <TypeField name="mail" type="email" libelle="Adresse mail :" value={this.state.mail} onChange={this.handleMail} />
-                    <TypeField name="password" type="password" libelle="Mot De Passe :" value={this.state.password} onChange={this.handlePass} />
-                    <div>
-                        <label htmlFor="droits"> Droits :</label>
-                        <select value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
+            <Container className="m-auto">
+            <Form className="w-50 m-auto p-3">
+                <Form.Group className="mb-3">
+                    <Form.Label>Prénom :</Form.Label>
+                    <Form.Control  name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Nom :</Form.Label>
+                    <Form.Control name="nom" value={this.state.nom} onChange={this.handleNom} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Aresse mail :</Form.Label>
+                    <Form.Control name="mail" type="email" value={this.state.mail} onChange={this.handleMail} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Mot De Passe :</Form.Label>
+                    <Form.Control name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <FloatingLabel controlId="floatingSelect" label="Droits">
+                        <Form.Select aria-label="Floating label select" value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
                             <option value="false" defaultValue>Classique</option>
                             <option value="true">Administrateur</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="departement"> Département :</label>
-                        <select value={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
-                            <option value="dev" defaultValue>Développement</option>
-                            <option value="hr">Ressources Humaines</option>
-                            <option value="sales">Ventes</option>
-                        </select>
-                    </div>
-                    <div>
-                    <label htmlFor="file"> Photo de profil :</label>
-                    <input type="file" id="file" onChange={this.handleFileChange}/>
-                    </div>
-                    <div>
+                        </Form.Select>
+                    </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <FloatingLabel controlId="floatingSelect" label="Département">
+                        <Form.Select aria-label="Floating label select" lue={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
+                                <option value="dev" defaultValue>Développement</option>
+                                <option value="hr">Ressources Humaines</option>
+                                <option value="sales">Ventes</option>
+                        </Form.Select>
+                    </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Photo de profil :</Form.Label>
+                    <Form.Control  type="file" id="file" onChange={this.handleFileChange} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
                         <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
                             S'inscrire
                         </Button>
-                    </div>
-                </form>
-            </section>
+                </Form.Group>
+            </Form>
+        </Container>
+
+           /*
+                    <label htmlFor="file"> Photo de profil :</label>
+                    <input type="file" id="file" onChange={this.handleFileChange}/>
+                   */
     )}
 
 }

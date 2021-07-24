@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import TypeField from '../formItems/typeField'
 
 
+//Imports Bootstrap
+import { Container, Row, Col, Form, FormGroup, FormControl } from 'react-bootstrap';
+
 class FormLogin extends React.Component{
 
     constructor(props){
@@ -59,15 +62,25 @@ class FormLogin extends React.Component{
     render() {
         localStorage.clear();
         return(
-            <section>
-                     <TypeField name="mail" type="email" libelle="Adresse mail :" value={this.state.mail} onChange={this.handleMail} />
-                    <TypeField name="password" type="password" libelle="Mot De Passe :" value={this.state.password} onChange={this.handlePass} />
-                    <div>
-                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
-                            Se connecter
-                        </Button>
-                    </div>
-            </section>
+            <Container className="m-auto">
+                <Form className="w-50 m-auto">
+                    <Form.Group className="mb-3">
+                        <Form.Label>Adresse mail :</Form.Label>
+                        <Form.Control  name="mail" type="email" value={this.state.mail} onChange={this.handleMail}/>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Mot de passe :</Form.Label>
+                        <Form.Control name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                            <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
+                                Se connecter
+                            </Button>
+                    </Form.Group>
+                </Form>
+            </Container>
         )
     }
 }
