@@ -13,6 +13,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,6 +35,7 @@ class Post extends React.Component{
           error: null,
           isLoaded: false,
           items: {},
+          connectedUserId :''
         };
       }
       
@@ -78,35 +80,29 @@ class Post extends React.Component{
         .catch(function(err){
             alert(err) // Affiche l'erreur dans une alert si erreur 
           });
+
+        fetch("http://localhost:3000/api/auth/getuserId",{
+            headers:{
+                'Authorization' : 'bearer ' + token
+            }
+        })
+        .then(response => response.json())
+        .then((res) => {
+          this.setState({
+            connectedUserId : res.userId.userId
+          })
+        })
+        .catch(function(err){
+          alert(err) // Affiche l'erreur dans une alert si erreur 
+        });
       }
-    render (){
-        const { content, date, imgUrl, likes, userId} = this.props;
-        const  {isLoaded, items } = this.state;
-      if (!isLoaded) {
-      return <div>Chargement…</div>;
-    } else {
-        return(
-            <Card>
-              <Link to={"/mur/?id="+userId}>
-                <CardHeader avatar={
-                      <Avatar>
-                        {items.firstname[0]+items.lastname[0]}
-                      </Avatar>}
-                      title={items.firstname + " " + items.lastname}
-                      subheader={date}
-                  >
-                  </CardHeader>
-              </Link>
-                <CardContent>
-                    <Typography>
-                        {content}
-                    </Typography>
-                </CardContent>
-                <CardMedia
-                component="img"
-         image={imgUrl}
-      />
-                <CardActions disableSpacing>
+      profileRedirect = () => {
+        this.props.history.push("/mur/?id="+this.props.userId)
+      }
+      cardActionsRender = () => {
+        if ((this.props.userId === this.state.connectedUserId) || (this.state.items.isAdmin === true) ){
+            return(
+              <CardActions disableSpacing>
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                   </IconButton>
@@ -116,8 +112,45 @@ class Post extends React.Component{
                   <IconButton onClick={this.deletePost}>
                         <CancelIcon />
                   </IconButton>
-                </CardActions>
-                    
+              </CardActions>
+            )
+        }
+        else{
+          return(
+          <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+        </CardActions>
+          )
+        }
+      }
+    render (){
+        const { content, date, imgUrl, likes, userId} = this.props;
+        const  {isLoaded, items } = this.state;
+      if (!isLoaded) {
+      return <div>Chargement…</div>;
+    } else {
+        return(
+            <Card>
+                <CardHeader 
+                  onClick={this.profileRedirect} avatar={
+                  <Avatar>
+                    {items.firstname[0]+items.lastname[0]}
+                  </Avatar>}
+                  title={items.firstname + " " + items.lastname}
+                  subheader={date}
+                />
+                <CardContent>
+                    <Typography>
+                        {content}
+                    </Typography>
+                </CardContent>
+                <CardMedia
+                component="img"
+                  image={imgUrl}
+                />
+                {this.cardActionsRender()}
             </Card>
         )
     }

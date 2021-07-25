@@ -128,7 +128,7 @@ exports.getUserId = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const userId = jwt.verify(token,  process.env.TOKEN_KEY);
-        return res.status(200).json({userId});
+        return res.status(200).json({"userId" : userId});
     }catch {
         res.status(401).json({
           error: new Error('Invalid Token!')

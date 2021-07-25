@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { Container, Row, Col, Navbar,NavDropdown,Nav, Button, Image, ButtonGroup } from 'react-bootstrap';
+import { withStyles } from "@material-ui/core/styles";
+
 
 import {
   BrowserRouter as Router,
@@ -13,6 +16,13 @@ import {
   Link, 
   withRouter
 } from "react-router-dom";
+
+const WhiteTextTypography = withStyles({
+  root: {
+    color: "#FFFFFF",
+    margin: "8px"
+  }
+})(Typography);
 
 class ProfileHeader extends React.Component{
     constructor(props) {
@@ -67,12 +77,47 @@ class ProfileHeader extends React.Component{
           .catch((res)=>console.log(res))
       }
 
+      returnImage = () => {
+        if (this.state.items.user.profileurl){
+          return  <Image src={this.state.items.user.profileurl} />
+        }
+        else {
+          return  <Avatar>
+                    {this.state.items.user.firstname[0]+this.state.items.user.lastname[0]}
+                  </Avatar>
+        }
+      }
+
       render(){
         const  {isLoaded, items } = this.state;
           if (!isLoaded) {
           return <div>Chargement…</div>;
         } else {
             return(
+                  <Container className="m-auto bg-dark rounded">
+                    <Row className="align-items-center p-4 mt-3">
+                      <Col align="center">
+                        {this.returnImage()}
+                      </Col>
+
+                      <Col align="center" xs={12} md={6}>
+                        <WhiteTextTypography variant="h3">
+                          {items.user.firstname+" "+items.user.lastname}
+                        </WhiteTextTypography>
+                      </Col>
+
+                      <Col align="center">
+                        <ButtonGroup aria-label="Basic example">
+                          <Button variant="transparent" onClick={this.editRedirect}><EditIcon color="primary"/></Button>
+                          <Button variant="transparent" onClick={this.deletePost}>  <CancelIcon style={{ color: 'red' }} /></Button>
+                        </ButtonGroup>
+                      </Col>
+                    </Row>
+                  </Container>
+
+
+
+/*
               <div style={{backgroundColor: "grey"}} >
                 <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
                     <Grid item xs={4}>
@@ -94,7 +139,7 @@ class ProfileHeader extends React.Component{
                   </IconButton>
                     </Grid>
                 </Grid>
-                </div>
+                </div>*/
             )
       }
     }

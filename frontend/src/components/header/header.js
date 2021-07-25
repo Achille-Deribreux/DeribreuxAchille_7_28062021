@@ -50,21 +50,34 @@ class Header extends React.Component {
     //Appel API
     componentDidMount() {
         let token =localStorage.getItem('token');
-        fetch("http://localhost:3000/api/auth/1",{
+        fetch("http://localhost:3000/api/auth/getuserId",{
             headers:{
                 'Authorization' : 'bearer ' + token
             }
         })
         .then(response => response.json())
-        .then((response) => {
-            this.setState({
-                isLoaded: true,
-                items: response.user
-              });
+        .then((res) => {
+           fetch("http://localhost:3000/api/auth/"+res.userId.userId,{
+                headers:{
+                    'Authorization' : 'bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then((response) => {
+                this.setState({
+                    isLoaded: true,
+                    items: response.user
+                  });
+            })
+            .catch(function(error) {
+                alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+              })
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-          });
+        .catch((err) => {console.log(err)})
+
+
+
+       
     }
 
     //Redirections vers les pages

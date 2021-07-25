@@ -3,6 +3,8 @@ import Header from '../components/header/header'
 import Post from '../components/post/post'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { Container, Row, Col, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
+
 
 class Home extends React.Component{
   constructor(props) {
@@ -42,18 +44,17 @@ class Home extends React.Component{
      
       <div>
           <Header />
-          <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
-{/* Condition ici */}
-          {items.map(item => (
-            
-              <Grid item xs={12} key={item.id} >
-                <Paper>
-                <Post key = {item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
-                </Paper>
-              </Grid>
-          ))}
-          </Grid>
-
+          <Container>
+            {items.map(item => (
+              <Row className="m-1">
+                <Col>
+                  <Paper variant="outlined" elevation={3} >
+                    <Post key = {item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                  </Paper>
+                </Col>
+              </Row>
+            ))}
+          </Container>
       </div>
     );
   }
