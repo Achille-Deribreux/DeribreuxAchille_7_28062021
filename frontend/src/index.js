@@ -18,7 +18,7 @@ import Mur from './containers/mur';
 import Search from './containers/search';
 import ModifyPost from './containers/postModification';
 import ProfileUpdate from './containers/profileUpdate';
-
+import Post from './containers/post';
 
 
 
@@ -35,6 +35,7 @@ ReactDOM.render(
         <Route path="/login"  exact component={Login}/>
         <Route path="/home"  exact component={Home}/>
         <Route path="/create-post" exact component={PostCreation}/>
+        <Route path="/post/" component={Post}/>
         <Route path="/mur/" component={Mur}/>
         <Route path="/search" component={Search} />
         <Route path="/update" component={ModifyPost} />

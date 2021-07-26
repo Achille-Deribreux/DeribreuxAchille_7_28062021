@@ -2,7 +2,11 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Axios from 'axios';
+import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
+import { withStyles } from "@material-ui/core/styles";
+import WhiteTextTypography from '../WhiteTextTypo'
 
 class CreatePost extends React.Component {
     constructor(props){
@@ -40,41 +44,53 @@ class CreatePost extends React.Component {
     })
     .then((res) => console.log(res.data))
     .catch((err)=>console.log(err));
-    /*
-        
-        Axios.post("http://localhost:3000/api/post/write", data)
-        .then((res) => console.log(res))
-        .catch((err)=>console.log(err));
-    */
+  
         //Reset state
     }
     
     render(){
         return(
-            <Grid container
-            spacing={1}
-            direction="column"
-            alignItems="center"
-            justify="center">
-                <form action="#">
-                <Grid item xs={12}>
-                    <Box m={4}>
-                        <textarea name="content" id="content" value={this.state.content} onChange={this.handleContentChange}></textarea>
-                    </Box>
+                <Container className="my-3">
+                    <Row className="bg-dark rounded">
+                        <Col align="center" className="my-3">
+                            <WhiteTextTypography variant="h2">
+                                Créer un post
+                            </WhiteTextTypography>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col align="center">
+                            <Form.Group className="my-3">
+                                <FloatingLabel label="Votre message :">
+                                <Form.Control
+                                as="textarea"
+                                style={{ height: '100px' }}
+                                name="content" id="content" 
+                                value={this.state.content} 
+                                onChange={this.handleContentChange}
+                                />
+                                </FloatingLabel>
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                    <Box m={4}>
-                        <input type="file" id="file" onChange={this.handleFileChange}/>
-                    </Box>
-                </Grid>
+                    <Row>
+                        <Col align="center">
+                            <Form.Group className="my-3">
+                                <Form.Label>Ajouter une image :</Form.Label>
+                                <Form.Control type="file" id="file" onChange={this.handleFileChange} />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                <Grid item xs={12}>
-                    <Button size="large" variant="contained" color="primary" onClick={this.handleSubmit}>
-                        Publier
-                    </Button>
-                </Grid>
-                </form>
-            </Grid>
-            
+                    <Row>
+                        <Col align="center" className="my-3">
+                            <Button size="large" variant="contained" color="secondary" onClick={this.handleSubmit}>
+                                Publier
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
         )
     }
 }

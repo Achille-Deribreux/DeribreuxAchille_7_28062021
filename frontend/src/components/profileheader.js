@@ -114,32 +114,6 @@ class ProfileHeader extends React.Component{
                       </Col>
                     </Row>
                   </Container>
-
-
-
-/*
-              <div style={{backgroundColor: "grey"}} >
-                <Grid container alignContent='center' alignItems="center" direction='row' spacing={3}>
-                    <Grid item xs={4}>
-                        <Avatar>
-                        {items.user.firstname[0]+items.user.lastname[0]}
-                        </Avatar>
-                    </Grid>
-                    <Grid item xs={6}>
-                    <Typography variant="h2" gutterBottom>
-                    {items.user.firstname+" "+items.user.lastname}
-                    </Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                    <IconButton onClick={this.editRedirect}>
-                        <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={this.deletePost}>
-                        <CancelIcon />
-                  </IconButton>
-                    </Grid>
-                </Grid>
-                </div>*/
             )
       }
     }

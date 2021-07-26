@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
-import { ToastContainer, toast } from 'react-toastify';
+import { Container, Row, Col, Form, FloatingLabel, Image} from 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import {
@@ -20,7 +20,7 @@ import Box from '@material-ui/core/Box';
 
 import Alert from '@material-ui/lab/Alert'; 
 import Snackbar from '@material-ui/core/Snackbar';
-
+import WhiteTextTypography from './WhiteTextTypo'
 
 class ModifyPost extends React.Component {
     constructor(props){
@@ -88,53 +88,63 @@ class ModifyPost extends React.Component {
     })
     .then(response => response.json())
     .then((res) => {
-        toast.success('Post Modifié !', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            });
         this.props.history.push("/mur/?id="+res.userId);
     })
     .catch((err)=>console.log(err));
     }
 
     render(){
-        return(<div>
-            <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick={false}
-rtl={false}
-pauseOnFocusLoss={false}
-draggable={false}
-pauseOnHover
-/>
-<Card>
-                <CardContent>
-                    <Typography>
-                    <textarea name="content" id="content" value={this.state.content} onChange={this.handleContentChange}></textarea>
-                    </Typography>
-                </CardContent>
-                <CardMedia
-                component="img"
-         image={this.state.file}
-      />                    
-      <CardActions disableSpacing>
-      <input type="file" id="file" onChange={this.handleFileChange}/>
-      
-      </CardActions>
-      <Button size="large" variant="contained" color="primary" onClick={this.handleSubmit}>
-                        Modifier
-                    </Button>
-            </Card>
+        return(
+               <Container className="my-3">
+                    <Row className="bg-dark rounded">
+                        <Col align="center" className="my-3">
+                            <WhiteTextTypography variant="h2">
+                                Modifier un post
+                            </WhiteTextTypography>
+                        </Col>
+                    </Row>
 
-        </div>
+                    <Row>
+                        <Col align="center">
+                            <Form.Group className="my-3">
+                                <FloatingLabel label="Votre message :">
+                                <Form.Control
+                                as="textarea"
+                                style={{ height: '100px' }}
+                                name="content" id="content" 
+                                value={this.state.content} 
+                                onChange={this.handleContentChange}
+                                />
+                                </FloatingLabel>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col align="center" className="my-3">
+                            <Image src={this.state.file} rounded />
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col align="center">
+                            <Form.Group className="my-3">
+                                <Form.Label>Modifier l'image :</Form.Label>
+                                <Form.Control type="file" id="file" onChange={this.handleFileChange} />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col align="center" className="my-3">
+                            <Button size="large" variant="contained" color="secondary" onClick={this.handleSubmit}>
+                                Modifier
+                            </Button>
+                        </Col>
+                    </Row>
+
+
+                </Container>
         )
     }
 }

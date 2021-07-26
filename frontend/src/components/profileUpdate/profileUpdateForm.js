@@ -1,9 +1,10 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-
+import { Container, Row, Col, Form, FormGroup, FormControl, FloatingLabel } from 'react-bootstrap';
 import Field from '../formItems/field'
 import TypeField from '../formItems/typeField'
+import WhiteTextTypography from '../WhiteTextTypo'
 class ProfileUpdateForm extends React.Component{
     constructor(props){
         super(props)
@@ -115,43 +116,67 @@ class ProfileUpdateForm extends React.Component{
     
     render (){
         return (
-            <Grid container alignContent='center' alignItems="center" spacing={3}>
-                <Grid item>
-                <section>
-                    <form>
-                        <Field name="prenom" libelle="Prénom : " value={this.state.prenom} onChange={this.handlePrenom}/>
-                        <Field name="nom" libelle="Nom :" value={this.state.nom} onChange={this.handleNom}/>
-                        <TypeField name="mail" type="email" libelle="Adresse mail :" value={this.state.mail} onChange={this.handleMail} />
-                        <TypeField name="password" type="password" libelle="Saisir un nouveau mot de passe :" value={this.state.password} onChange={this.handlePass} />
-                        <div>
-                            <label htmlFor="droits"> Droits :</label>
-                            <select value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
-                                <option value="false" defaultValue>Classique</option>
-                                <option value="true">Administrateur</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="departement"> Département :</label>
-                            <select value={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
-                                <option value="dev" defaultValue>Développement</option>
+            <Container className="m-auto">
+                  <Row className="bg-dark rounded my-3">
+                        <Col align="center" className="my-3">
+                            <WhiteTextTypography variant="h3">
+                                Modifier mes données 
+                            </WhiteTextTypography>
+                        </Col>
+                    </Row>
+
+            <Form className="w-50 m-auto p-3">
+                <Form.Group className="mb-3">
+                    <Form.Label>Prénom :</Form.Label>
+                    <Form.Control  name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Nom :</Form.Label>
+                    <Form.Control name="nom" value={this.state.nom} onChange={this.handleNom} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Aresse mail :</Form.Label>
+                    <Form.Control name="mail" type="email" value={this.state.mail} onChange={this.handleMail} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Mot De Passe :</Form.Label>
+                    <Form.Control name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <FloatingLabel controlId="floatingSelect" label="Droits">
+                        <Form.Select aria-label="Floating label select" value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
+                            <option value="false">Classique</option>
+                            <option value="true">Administrateur</option>
+                        </Form.Select>
+                    </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <FloatingLabel controlId="floatingSelect" label="Département">
+                        <Form.Select aria-label="Floating label select" lue={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
+                                <option value="dev">Développement</option>
                                 <option value="hr">Ressources Humaines</option>
                                 <option value="sales">Ventes</option>
-                            </select>
-                        </div>
-                        <div>
-                        <label htmlFor="file"> Changer de photo de profil :</label>
-                        <input type="file" id="file" onChange={this.handleFileChange}/>
-                        </div>
-                        <div>
-                            <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
-                                Modifier
-                            </Button>
-                        </div>
-                    </form>
-                </section>
-                </Grid>
-            </Grid>
-          
+                        </Form.Select>
+                    </FloatingLabel>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Photo de profil :</Form.Label>
+                    <Form.Control  type="file" id="file" onChange={this.handleFileChange} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
+                            S'inscrire
+                        </Button>
+                </Form.Group>
+            </Form>
+        </Container>
         )
     }
 }
