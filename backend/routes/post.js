@@ -9,7 +9,7 @@ const router = express.Router()
 
 //Routes
 //CommentRoutes
-router.get('/getAllComments', postCtrl.getAllComments)
+router.get('/getAllComments/:id', postCtrl.getAllComments)
 router.post('/postComment', multer, postCtrl.postComment)
 router.delete('/deleteComment', multer, postCtrl.deleteComment)
 router.get('/home',postCtrl.getAll);

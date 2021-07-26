@@ -34,7 +34,7 @@ class PostContainer extends React.Component {
               item: result,
               isLoaded : false
             });
-            fetch("http://localhost:3000/api/post/getAllComments",{
+            fetch("http://localhost:3000/api/post/getAllComments/"+result.id,{
                 headers:{
                     'Authorization' : 'bearer ' + token
                 }
@@ -61,7 +61,6 @@ class PostContainer extends React.Component {
     if (!isLoaded) {
       return <div>Chargement…</div>;
     } else {
-        console.log("tetstest", comments)
         return (
             <React.Fragment>
                 <Header />

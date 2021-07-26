@@ -150,6 +150,7 @@ exports.postComment = (req, res, next ) => {
 
 exports.getAllComments = (req, res, next ) => {
     models.Comments.findAll({
+        where: { postId : req.params.id },
         order: [['createdAt', 'ASC']]
     })
     .then((comments) => {
