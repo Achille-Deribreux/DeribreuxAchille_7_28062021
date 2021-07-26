@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelIcon from '@material-ui/icons/Cancel';
-
+import ChatIcon from '@material-ui/icons/Chat';
 
 
 import {
@@ -99,12 +99,28 @@ class Post extends React.Component{
       profileRedirect = () => {
         this.props.history.push("/mur/?id="+this.props.userId)
       }
+      showFullPost = () => {
+        this.props.history.push("/post/?id="+this.props.id)
+      }
+
+      renderAvatar = () => {
+        if (this.state.items.profileurl){
+            return  <Avatar alt="Profile Avatar" src={this.state.items.profileurl} />
+        }
+        else{
+            return <Avatar>{this.state.items.firstname[0]+this.state.items.lastname[0]} </Avatar>
+        }
+    }
+
       cardActionsRender = () => {
         if ((this.props.userId === this.state.connectedUserId) || (this.state.items.isAdmin === true) ){
             return(
               <CardActions disableSpacing>
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label="See comments" onClick={this.showFullPost}>
+                    <ChatIcon />
                   </IconButton>
                   <IconButton onClick={this.editRedirect}>
                         <EditIcon />
@@ -121,6 +137,9 @@ class Post extends React.Component{
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
+          <IconButton aria-label="See comments" onClick={this.showFullPost}>
+            <ChatIcon />
+          </IconButton>
         </CardActions>
           )
         }
@@ -135,9 +154,7 @@ class Post extends React.Component{
             <Card>
                 <CardHeader 
                   onClick={this.profileRedirect} avatar={
-                  <Avatar>
-                    {items.firstname[0]+items.lastname[0]}
-                  </Avatar>}
+                  this.renderAvatar()}
                   title={items.firstname + " " + items.lastname}
                   subheader={date}
                 />

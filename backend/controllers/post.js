@@ -97,7 +97,6 @@ exports.deletePost = (req, res, next ) => {
                     where: { id: req.body.postId }
                 })
                 .then((postFind) => {
-                   
                     if (postFind.imageUrl) {
                         const filename = postFind.imageUrl.split('/images/')[1];
                         fs.unlink(`images/${filename}`, () => {
@@ -127,4 +126,58 @@ exports.deletePost = (req, res, next ) => {
     )
     .catch(error => res.status(500).json(error));
 }
-//http://localhost:3000/images/tabasco-sauce-piquante-originale.jpeg1623314509988.jpg
+
+exports.postComment = (req, res, next ) => {
+    let userid = utils.getUserId(req.headers.authorization);
+    models.Posts.findOne(
+        {
+            where: {id:req.body.postid}
+        })
+        .then((postFind) => {
+            const newComment = models.Comments.create({
+                PostId : req.body.postid,
+                UserId : userid,
+                content: req.body.content
+            })
+            .then((newComment) => {
+                console.log("comment", newComment);
+                res.status(201).json(newComment);
+            })
+            .catch((error) => res.status(500).json({ error }));
+        })
+        .catch(err => res.status(500).json(err))
+}
+
+exports.getAllComments = (req, res, next ) => {
+    models.Comments.findAll({
+        order: [['createdAt', 'ASC']]
+    })
+    .then((comments) => {
+        res.status(203).json(comments)})
+    .catch((error) => res.status(400).json({ error }));
+}
+
+exports.deleteComment = (req, res, next ) => { 
+    let id = utils.getUserId(req.headers.authorization);
+    models.Users.findOne({
+        where: { id: id }
+    })
+    .then(user => {
+        if (user && (user.isAdmin == true || user.id == req.body.author)) {
+            models.Comments
+                .findOne({
+                    where: { id: req.body.commentId }
+                })
+                .then((commentFind) => {
+                    models.Comments
+                    .destroy({
+                        where: { id: commentFind.id }
+                    })
+                    .then(() => res.status(200).json("commentaire supprimé !"))
+                    .catch(err => res.status(500).json(err))
+                })
+                .catch(error => res.status(500).json(error));
+            }
+    })
+    .catch(error => res.status(500).json(error));
+}

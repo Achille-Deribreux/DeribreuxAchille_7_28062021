@@ -5,6 +5,8 @@ import { Container, Row, Col} from 'react-bootstrap';
 import Paper from '@material-ui/core/Paper';
 import CommentForm from '../components/commentForm'
 import Comment from '../components/comment'
+import List from '@material-ui/core/List';
+
 
 class PostContainer extends React.Component {
     constructor(props) {
@@ -30,21 +32,36 @@ class PostContainer extends React.Component {
         .then((result) => {
             this.setState({
               item: result,
-              isLoaded : true
+              isLoaded : false
             });
-            //fetchAllComments
-          })
+            fetch("http://localhost:3000/api/post/getAllComments",{
+                headers:{
+                    'Authorization' : 'bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then((result) => {
+                this.setState({
+                    comments: result,
+                  isLoaded : true
+                });
+            })
+            .catch(function(err){
+                alert(err) // Affiche l'erreur dans une alert si erreur 
+            });
+        })
         .catch(function(err){
           alert(err) // Affiche l'erreur dans une alert si erreur 
         });
     }
 
     render(){
-    const  {isLoaded, item } = this.state;
+    const  {isLoaded, item, comments} = this.state;
     
     if (!isLoaded) {
       return <div>Chargement…</div>;
     } else {
+        console.log("tetstest", comments)
         return (
             <React.Fragment>
                 <Header />
@@ -58,14 +75,19 @@ class PostContainer extends React.Component {
                     </Row>
 
                     <Row>
-                        <Col>
-                            <CommentForm />
+                        <Col align="center">
+                            <List>
+                                
+                                {comments.map(comment => (
+                                <Comment key={comment.id} id={comment.id} content={comment.content} userId={comment.userid} date={comment.createdAt}/>
+                            ))}
+                            </List>
                         </Col>
                     </Row>
-                    {/*Items.map all comments*/}
+
                     <Row>
                         <Col>
-                        
+                            <CommentForm postid={item.id} />
                         </Col>
                     </Row>
                 </Container>
