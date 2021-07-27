@@ -126,29 +126,60 @@ class Post extends React.Component{
         }
     }
     unlikePost = () => {
+      const unlikePostBody = new FormData();
+      unlikePostBody.append("userId",this.state.connectedUserId)
+      unlikePostBody.append("postId",this.props.id)
 
+      fetch("http://localhost:3000/api/post/unlikePost",{
+        method:'PUT',
+          headers:{
+            'Authorization' : 'bearer ' + localStorage.getItem('token')
+          },
+          body : unlikePostBody
+        })
+        .then((results) => {
+          console.log(results)
+        })
+      .catch(function(err){
+        alert(err) // Affiche l'erreur dans une alert si erreur 
+      });
     }
     likePost = () => {
+      const likePostBody = new FormData();
+      likePostBody.append("userId",this.state.connectedUserId)
+      likePostBody.append("postId",this.props.id)
+
+      fetch("http://localhost:3000/api/post/likePost",{
+        method:'PUT',
+          headers:{
+            'Authorization' : 'bearer ' + localStorage.getItem('token')
+          },
+          body : likePostBody
+        })
+        .then((results) => {
+          console.log(results)
+        })
+      .catch(function(err){
+        alert(err) // Affiche l'erreur dans une alert si erreur 
+      });
 
     }
 
 
     renderLikeButton(){
     const {userliked} = this.props;
-    console.log("userLiked",userliked)
-    /*
-    let userLikedArray = usersliked.split(';');
-      if (userLikedArray.includes(this.state.connectedUserId)){
-        <IconButton aria-label="add to favorites" onClick={this.unlikePost}>
+    let userLikedArray = userliked.split(';');
+      if (userLikedArray.includes(this.state.connectedUserId.toString())){
+        return(<IconButton aria-label="add to favorites" onClick={this.unlikePost}>
                   {this.props.likes}
                   <FavoriteIcon style={{ color: 'red' }}/>
-        </IconButton>
+        </IconButton>)
       }else{
-        <IconButton aria-label="add to favorites" onClick={this.likePost}>
+        return(<IconButton aria-label="add to favorites" onClick={this.likePost}>
                   {this.props.likes}
                   <FavoriteIcon />
-        </IconButton>
-      }*/
+        </IconButton>)
+      }
 
 
 

@@ -219,6 +219,8 @@ exports.deleteComment = (req, res, next ) => {
 exports.likePost = (req, res, next ) => { 
     let userId = req.body.userId;
     let postid = req.body.postId;
+    console.log("userid",userId);
+    console.log("postid",postid)
 
     models.Posts.findOne(
         {

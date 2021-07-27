@@ -9,8 +9,8 @@ const router = express.Router()
 
 //Routes
 //CommentRoutes
-router.put('/likePost', postCtrl.likePost);
-router.put('/unlikePost', postCtrl.unLikePost);
+router.put('/likePost', multer,postCtrl.likePost);
+router.put('/unlikePost', multer, postCtrl.unLikePost);
 router.get('/getAllComments/:id', postCtrl.getAllComments)
 router.post('/postComment', multer, postCtrl.postComment)
 router.delete('/deleteComment', multer, postCtrl.deleteComment)
