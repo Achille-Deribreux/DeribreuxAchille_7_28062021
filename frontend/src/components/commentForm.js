@@ -9,7 +9,7 @@ import {
     Link, 
     withRouter
   } from "react-router-dom";
-
+import PropTypes from 'prop-types';
   
 class CommentForm extends React.Component {
     constructor(props) {
@@ -51,8 +51,10 @@ class CommentForm extends React.Component {
                 progress: undefined,
                 });
                 console.log(this.props.postid);
+                
                 setTimeout(() => { 
-                    this.props.history.push('/post/?id='+this.props.postid);
+                    this.props.reload();
+                    //this.props.history.push('/post/?id='+this.props.postid);
                 }, 1500)
         })
         .catch(function(error) {
@@ -88,5 +90,7 @@ class CommentForm extends React.Component {
         )
     } 
 }
-
+CommentForm.propTypes= {
+    reload: PropTypes.func
+};
 export default withRouter(CommentForm);

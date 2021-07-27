@@ -18,11 +18,27 @@ class PostContainer extends React.Component {
           isLoaded: false,
           item: '',
           comments : [],
+          reload : false,
           postId : (new URL(document.location)).searchParams.get('id')
         };
       }
+      componentDidUpdate(){
+          console.log("did update vaut", this.state.reload)
+          if(this.state.reload){
+              console.log("ça passe dans la condition")
+          this.apiCall();
+          this.setState({
+            reload:false
+          })
+          }
+      }
 
     componentDidMount(){
+        console.log("premier call api")
+        this.apiCall()
+    }
+
+    apiCall(){
         let token = localStorage.getItem('token');
 
         fetch("http://localhost:3000/api/post/getpost/"+this.state.postId,{
@@ -57,10 +73,18 @@ class PostContainer extends React.Component {
         });
     }
 
+    setToFalse = () => {
+        this.setState({
+          reload : true
+        })
+        console.log("ça set false", this.state.reload);
+      }
+
     render(){
     const  {isLoaded, item, comments} = this.state;
     
     if (!isLoaded) {
+        console.log("ça charge")
       return <div>Chargement…</div>;
     } else {
         return (
@@ -101,7 +125,7 @@ pauseOnHover
 
                     <Row>
                         <Col>
-                            <CommentForm postid={item.id} />
+                            <CommentForm reload={this.setToFalse} postid={item.id} />
                         </Col>
                     </Row>
                 </Container>
@@ -112,4 +136,6 @@ pauseOnHover
     }
 }
 }
+
+
 export default PostContainer;
