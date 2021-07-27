@@ -141,21 +141,73 @@ exports.updateUser = (req, res, next) => {
     models.Users.findOne({
         where: { id: id }
     })
-    .then(user => {      
-            models.Users.update(
+    .then(user => {
+        if (req.body.password){
+            bcrypt.hash(req.body.password, 10)
+            .then((hash) => {
+                models.Users.update(
+                    { 
+                    password : hash
+                    },
+                    { where: { id: id } }
+                )
+                .then(() => res.status(200).json("Réussi"))
+                .catch(err => res.status(500).json(err))
+            })
+            .catch((error) => res.status(500).json({ error }));
+        }     
+        if (req.file){
+            if (user.profileurl){
+                const filename = user.profileurl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => {
+                    models.Users.update(
+                        { 
+                        mail : req.body.mail,
+                        firstname : req.body.prenom,
+                        lastname: req.body.nom,
+                        //password : BCRYPT
+                        team: req.body.team,
+                        isAdmin: req.body.isAdmin,
+                        profileurl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                        },
+                        { where: { id: id } }
+                    )
+                    .then(() => res.status(200).json("Réussi"))
+                    .catch(err => res.status(500).json(err))
+                })
+            }
+            else{
+                models.Users.update(
                     { 
                     mail : req.body.mail,
                     firstname : req.body.prenom,
                     lastname: req.body.nom,
                     //password : BCRYPT
                     team: req.body.team,
-                    isAdmin: req.body.isAdmin
-                    //profileurl
+                    isAdmin: req.body.isAdmin,
+                    profileurl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                     },
                     { where: { id: id } }
                 )
                 .then(() => res.status(200).json("Réussi"))
                 .catch(err => res.status(500).json(err))
+            }
+        }
+        else{
+            models.Users.update(
+                { 
+                mail : req.body.mail,
+                firstname : req.body.prenom,
+                lastname: req.body.nom,
+                //password : BCRYPT
+                team: req.body.team,
+                isAdmin: req.body.isAdmin
+                },
+                { where: { id: id } }
+            )
+            .then(() => res.status(200).json("Réussi"))
+            .catch(err => res.status(500).json(err))
+        }
     }
     )
     .catch(error => res.status(500).json(error));

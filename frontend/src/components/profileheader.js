@@ -90,7 +90,7 @@ class ProfileHeader extends React.Component{
 
       returnImage = () => {
         if (this.state.items.user.profileurl){
-          return  <Image src={this.state.items.user.profileurl} />
+          return  <Image src={this.state.items.user.profileurl} className="w-100" roundedCircle/>
         }
         else {
           return  <Avatar>

@@ -21,6 +21,7 @@ exports.createPost = (req, res, next)=>{
         where: { id: userId }
     })
     .then(user =>{
+        if(req.file){
         const newPost = models.Posts.create({
             UserId : userId,
             content: content,
@@ -30,6 +31,16 @@ exports.createPost = (req, res, next)=>{
         .catch(error => {
             res.status(500).json({ error })
         })
+        }else{
+            const newPost = models.Posts.create({
+                UserId : userId,
+                content: content,
+            })
+            .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ? 
+            .catch(error => {
+                res.status(500).json({ error })
+            })
+        }
 
     })
     .catch(err => { res.status(500).json({ err }) });
@@ -66,21 +77,41 @@ exports.modifyPost = (req, res, next ) => {
     })
     .then(user => {
         if (user && (user.isAdmin == true || user.id == req.body.author)) {
-            models.Posts.update(
-                    { //req.file ? {imgUrl:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`}:{null}
-                        content: req.body.content
-                       
-                    },
-                    { where: { id: req.body.postId } }
-                )
-                .then(() => res.status(201).json({ 'userId': id}))
+            models.Posts
+                .findOne({
+                    where: { id: req.body.postId }
+                })
+                .then((postFind) =>{
+                    if (req.file){
+                        const filename = postFind.imageUrl.split('/images/')[1];
+                    fs.unlink(`images/${filename}`, () => {
+                        models.Posts.update(
+                            {   
+                                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                                content: req.body.content
+                            },
+                            { where: { id: req.body.postId } }
+                        )
+                        .then(() => res.status(201).json({ 'userId': id}))
+                        .catch(err => res.status(500).json(err))
+                    })}
+                    else{
+                        models.Posts.update(
+                            {
+                                content: req.body.content
+                            },
+                            { where: { id: req.body.postId } }
+                        )
+                        .then(() => res.status(201).json({ 'userId': id}))
+                        .catch(err => res.status(500).json(err))
+                    }
+                })
                 .catch(err => res.status(500).json(err))
         }
         else {
             res.status(401).json({ error: 'Utilisateur non autorisé à modifier ce post' })
         }
-    }
-    )
+    })
     .catch(error => res.status(500).json(error));
 }
 
