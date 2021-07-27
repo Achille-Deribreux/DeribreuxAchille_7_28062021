@@ -8,26 +8,18 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ChatIcon from '@material-ui/icons/Chat';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link, 
   withRouter
 } from "react-router-dom";
 
-import userLogo from "../../assets/user.png";
-import likeLogo from "../../assets/like.png";
-import Buttons from "../post/parts/buttons"
-import Like from "./parts/like";
-
 var dateFormat = require('dateformat');
+
+
 class Post extends React.Component{
     constructor(props) {
         super(props);
@@ -90,25 +82,24 @@ class Post extends React.Component{
                 isLoaded: true,
                 items: userObject.user
               });
+              fetch("http://localhost:3000/api/auth/getuserId",{
+                  headers:{
+                      'Authorization' : 'bearer ' + token
+                  }
+              })
+              .then(response => response.json())
+              .then((res) => {
+                this.setState({
+                  connectedUserId : res.userId.userId
+                })
+              })
+              .catch(function(err){
+                alert(err) // Affiche l'erreur dans une alert si erreur 
+              });
         })
         .catch(function(err){
             alert(err) // Affiche l'erreur dans une alert si erreur 
           });
-
-        fetch("http://localhost:3000/api/auth/getuserId",{
-            headers:{
-                'Authorization' : 'bearer ' + token
-            }
-        })
-        .then(response => response.json())
-        .then((res) => {
-          this.setState({
-            connectedUserId : res.userId.userId
-          })
-        })
-        .catch(function(err){
-          alert(err) // Affiche l'erreur dans une alert si erreur 
-        });
       }
       profileRedirect = () => {
         this.props.history.push("/mur/?id="+this.props.userId)
@@ -144,6 +135,7 @@ class Post extends React.Component{
         alert(err) // Affiche l'erreur dans une alert si erreur 
       });
     }
+
     likePost = () => {
       const likePostBody = new FormData();
       likePostBody.append("userId",this.state.connectedUserId)
@@ -180,17 +172,6 @@ class Post extends React.Component{
                   <FavoriteIcon />
         </IconButton>)
       }
-
-
-
-
-
-      /*
-      <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  */ 
-
     }
 
       cardActionsRender = () => {
