@@ -1,7 +1,16 @@
 import React from 'react';
 import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link, 
+    withRouter
+  } from "react-router-dom";
 
+  
 class CommentForm extends React.Component {
     constructor(props) {
         super(props);
@@ -31,9 +40,20 @@ class CommentForm extends React.Component {
             },
             body: data
         })
-        .then(response => response.json())
         .then((response) => {
-            console.log(response)
+            toast.success('Commentaire Publié !', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+                console.log(this.props.postid);
+                setTimeout(() => { 
+                    this.props.history.push('/post/?id='+this.props.postid);
+                }, 1500)
         })
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
@@ -69,4 +89,4 @@ class CommentForm extends React.Component {
     } 
 }
 
-export default CommentForm
+export default withRouter(CommentForm);

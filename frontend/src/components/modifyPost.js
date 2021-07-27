@@ -21,7 +21,7 @@ import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert'; 
 import Snackbar from '@material-ui/core/Snackbar';
 import WhiteTextTypography from './WhiteTextTypo'
-
+import { ToastContainer, toast } from 'react-toastify';
 class ModifyPost extends React.Component {
     constructor(props){
         super(props)
@@ -88,7 +88,19 @@ class ModifyPost extends React.Component {
     })
     .then(response => response.json())
     .then((res) => {
-        this.props.history.push("/mur/?id="+res.userId);
+        toast.success('Post Modifié !', {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            setTimeout(() => { 
+                this.props.history.goBack()
+                //this.props.history.push('/post/?id='+(new URL(document.location)).searchParams.get('id'));
+            }, 1500)
     })
     .catch((err)=>console.log(err));
     }
@@ -121,8 +133,8 @@ class ModifyPost extends React.Component {
                     </Row>
 
                     <Row>
-                        <Col align="center" className="my-3">
-                            <Image src={this.state.file} rounded />
+                        <Col align="center" className="my-3" xs={12}>
+                            <Image src={this.state.file} rounded className="w-100"/>
                         </Col>
                     </Row>
 

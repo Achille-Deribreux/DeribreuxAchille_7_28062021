@@ -8,6 +8,16 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link, 
+    withRouter
+  } from "react-router-dom";
+  
 
 class Comment extends React.Component {
     constructor(props){
@@ -89,7 +99,20 @@ class Comment extends React.Component {
             },
             body : deleteBody
           })
-          .then((res)=>console.log(res))
+          .then((res)=>{
+            toast.success('Commentaire supprimé !', {
+                position: "top-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+                setTimeout(() => { 
+                    this.props.history.push('/home');
+                }, 1500)
+          })
           .catch((res)=>console.log(res))
     }
     
@@ -127,4 +150,4 @@ class Comment extends React.Component {
 }
 }
 
-export default Comment;
+export default withRouter(Comment);

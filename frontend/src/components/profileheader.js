@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { Container, Row, Col, Navbar,NavDropdown,Nav, Button, Image, ButtonGroup } from 'react-bootstrap';
 import { withStyles } from "@material-ui/core/styles";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   BrowserRouter as Router,
@@ -71,8 +71,19 @@ class ProfileHeader extends React.Component{
             body : deleteBody
           })
           .then((res)=> {
-            localStorage.clear()
-            this.props.history.push("/login");
+            toast.success('Profil supprimé !', {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
+              setTimeout(() => { 
+                localStorage.clear()
+                  this.props.history.push('/signup');
+              }, 1500)
           })
           .catch((res)=>console.log(res))
       }

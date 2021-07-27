@@ -4,7 +4,7 @@ import Post from '../components/post/post'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { Container, Row, Col, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 class Home extends React.Component{
   constructor(props) {
@@ -44,12 +44,25 @@ class Home extends React.Component{
      
       <div>
           <Header />
+          <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+{/* Same as */}
+<ToastContainer />
           <Container>
             {items.map(item => (
               <Row className="m-1">
                 <Col>
                   <Paper variant="outlined" elevation={3} >
-                    <Post key = {item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                    <Post key={item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                   </Paper>
                 </Col>
               </Row>

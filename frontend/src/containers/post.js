@@ -7,6 +7,8 @@ import CommentForm from '../components/commentForm'
 import Comment from '../components/comment'
 import List from '@material-ui/core/List';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class PostContainer extends React.Component {
     constructor(props) {
@@ -16,14 +18,14 @@ class PostContainer extends React.Component {
           isLoaded: false,
           item: '',
           comments : [],
+          postId : (new URL(document.location)).searchParams.get('id')
         };
       }
 
     componentDidMount(){
-        const id = (new URL(document.location)).searchParams.get('id');
         let token = localStorage.getItem('token');
 
-        fetch("http://localhost:3000/api/post/getpost/"+id,{
+        fetch("http://localhost:3000/api/post/getpost/"+this.state.postId,{
             headers:{
                 'Authorization' : 'bearer ' + token
             }
@@ -64,6 +66,19 @@ class PostContainer extends React.Component {
         return (
             <React.Fragment>
                 <Header />
+                <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+{/* Same as */}
+<ToastContainer />
                 <Container className="mt-4">
                     <Row>
                         <Col>
@@ -78,7 +93,7 @@ class PostContainer extends React.Component {
                             <List>
                                 
                                 {comments.map(comment => (
-                                <Comment key={comment.id} id={comment.id} content={comment.content} userId={comment.userid} date={comment.createdAt}/>
+                                <Comment key={comment.id} id={comment.id} content={comment.content} userId={comment.userid} postId={this.state.postId} date={comment.createdAt}/>
                             ))}
                             </List>
                         </Col>

@@ -12,7 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ChatIcon from '@material-ui/icons/Chat';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   BrowserRouter as Router,
@@ -27,6 +27,7 @@ import likeLogo from "../../assets/like.png";
 import Buttons from "../post/parts/buttons"
 import Like from "./parts/like";
 
+var dateFormat = require('dateformat');
 class Post extends React.Component{
     constructor(props) {
         super(props);
@@ -58,7 +59,20 @@ class Post extends React.Component{
             },
             body : deleteBody
           })
-          .then((res)=>console.log(res))
+          .then((res)=>{
+            toast.success('Post supprimé !', {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
+              setTimeout(() => { 
+                this.props.history.push('/mur/?id=?'+this.props.userId);
+              }, 1500)
+          })
           .catch((res)=>console.log(res))
       }
 
@@ -147,6 +161,7 @@ class Post extends React.Component{
     render (){
         const { content, date, imgUrl, likes, userId} = this.props;
         const  {isLoaded, items } = this.state;
+
       if (!isLoaded) {
       return <div>Chargement…</div>;
     } else {
@@ -156,7 +171,7 @@ class Post extends React.Component{
                   onClick={this.profileRedirect} avatar={
                   this.renderAvatar()}
                   title={items.firstname + " " + items.lastname}
-                  subheader={date}
+                  subheader={dateFormat(date, "HH:MM dd-mm-yyyy")}
                 />
                 <CardContent>
                     <Typography>

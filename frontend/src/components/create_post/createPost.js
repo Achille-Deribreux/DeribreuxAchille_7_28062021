@@ -6,8 +6,15 @@ import Typography from '@material-ui/core/Typography';
 import Axios from 'axios';
 import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
 import { withStyles } from "@material-ui/core/styles";
-import WhiteTextTypography from '../WhiteTextTypo'
-
+import WhiteTextTypography from '../WhiteTextTypo';
+import { ToastContainer, toast } from 'react-toastify';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link, 
+    withRouter
+  } from "react-router-dom";
 class CreatePost extends React.Component {
     constructor(props){
         super(props)
@@ -42,7 +49,20 @@ class CreatePost extends React.Component {
             },
             body: data
     })
-    .then((res) => console.log(res.data))
+    .then((res) => {
+        toast.success('Post Publié !', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            setTimeout(() => { 
+                this.props.history.push('/home');
+            }, 2000)
+    })
     .catch((err)=>console.log(err));
   
         //Reset state
@@ -96,5 +116,5 @@ class CreatePost extends React.Component {
 }
 
 
-export default CreatePost;
+export default withRouter(CreatePost);
 

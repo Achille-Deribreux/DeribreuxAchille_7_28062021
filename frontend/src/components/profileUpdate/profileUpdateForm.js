@@ -5,6 +5,15 @@ import { Container, Row, Col, Form, FormGroup, FormControl, FloatingLabel } from
 import Field from '../formItems/field'
 import TypeField from '../formItems/typeField'
 import WhiteTextTypography from '../WhiteTextTypo'
+import { ToastContainer, toast } from 'react-toastify';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link, 
+    withRouter
+  } from "react-router-dom";
+
 class ProfileUpdateForm extends React.Component{
     constructor(props){
         super(props)
@@ -15,13 +24,13 @@ class ProfileUpdateForm extends React.Component{
             password:'',
             team:'',
             isAdmin:'',
-            file:''
+            file:'',
+            userId : (new URL(document.location)).searchParams.get('id')
         }
     }
     componentWillMount(){
         let token = localStorage.getItem('token');
-        const userId = (new URL(document.location)).searchParams.get('id');
-        fetch("http://localhost:3000/api/auth/"+userId,{
+        fetch("http://localhost:3000/api/auth/"+this.state.userId,{
             headers:{
               'Authorization' : 'bearer ' + token
             }
@@ -110,7 +119,20 @@ class ProfileUpdateForm extends React.Component{
             },
             body: data
     })
-    .then((res) => console.log(res.data))
+    .then((res) => {
+        toast.success('Profil Modifié!', {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+            setTimeout(() => { 
+                this.props.history.push('/mur/?id='+this.state.userId);
+            }, 1500)
+      })
     .catch((err)=>console.log(err));
     }
     
@@ -172,7 +194,7 @@ class ProfileUpdateForm extends React.Component{
 
                 <Form.Group className="mb-3">
                         <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
-                            S'inscrire
+                            Modifier mon profil
                         </Button>
                 </Form.Group>
             </Form>
@@ -181,4 +203,4 @@ class ProfileUpdateForm extends React.Component{
     }
 }
 
-export default ProfileUpdateForm;
+export default withRouter(ProfileUpdateForm);
