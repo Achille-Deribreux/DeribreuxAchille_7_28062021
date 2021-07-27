@@ -17,6 +17,7 @@ exports.signup = (req, res, next)=>{
     let team = req.body.team;
     let isAdmin = req.body.isAdmin;
 //Vérifications à introduire
+
     if (mail == null || password == null ) {
         res.status(400).json({ error: 'il manque un paramètre' })
     }
@@ -29,6 +30,31 @@ exports.signup = (req, res, next)=>{
         if (!user) {
             bcrypt.hash(password, 10)
             .then((hash) => {
+                if(req.file){
+                    const newUser = models.Users.create({
+                        mail: mail,
+                        firstname: firstname,
+                        password: hash,
+                        lastname:lastname,
+                        team:team,
+                        isadmin : isAdmin,
+                        profileurl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                    })
+                        .then(newUser => { res.status(201).json({
+                             'id': newUser.id,
+                             token: jwt.sign(
+                                { userId: newUser.id },
+                                process.env.TOKEN_KEY,
+                                { expiresIn: '24h' }
+                              ),
+                              isAuth : true
+                            }) 
+                        })
+                        .catch(error => {
+                            res.status(500).json({ error })
+                        })
+                }
+                else{
                 // Création de l'user
                 console.log("req",req.body.isAdmin);
                 console.log(isAdmin);
@@ -40,7 +66,7 @@ exports.signup = (req, res, next)=>{
                     lastname:lastname,
                     team:team,
                     isadmin : isAdmin,
-                    profileurl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                    //profileurl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                 })
                     .then(newUser => { res.status(201).json({
                          'id': newUser.id,
@@ -54,7 +80,7 @@ exports.signup = (req, res, next)=>{
                     })
                     .catch(error => {
                         res.status(500).json({ error })
-                    })
+                    })}
             })
             .catch(err => { res.status(500).json({ err }) });
         }

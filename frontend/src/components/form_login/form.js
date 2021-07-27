@@ -64,7 +64,7 @@ class FormLogin extends React.Component{
         return(
             <Container className="m-auto">
                 <Form className="w-50 m-auto">
-                    <Form.Group className="mb-3">
+                    <Form.Group className="my-3">
                         <Form.Label>Adresse mail :</Form.Label>
                         <Form.Control  name="mail" type="email" value={this.state.mail} onChange={this.handleMail}/>
                     </Form.Group>

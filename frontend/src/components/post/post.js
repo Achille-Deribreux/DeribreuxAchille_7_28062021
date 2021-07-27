@@ -213,9 +213,7 @@ class Post extends React.Component{
         else{
           return(
           <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
+          {this.renderLikeButton()}
           <IconButton aria-label="See comments" onClick={this.showFullPost}>
             <ChatIcon />
           </IconButton>

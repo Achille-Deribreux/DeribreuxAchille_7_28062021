@@ -9,10 +9,26 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, 
+    withRouter
   } from "react-router-dom";
+import { IconButton } from '@material-ui/core';
 
 class UserCompo extends React.Component{
+
+    renderAvatar = () => {
+        let {firstname, lastname, profileurl} = this.props;
+        if (profileurl){
+            return  <Avatar alt="Profile Avatar" src={profileurl} />
+        }
+        else{
+            return  <Avatar>{firstname[0]+lastname[0]}</Avatar>
+        }
+    }
+    profileRedirect= () => {
+        this.props.history.push("/mur/?id=" + this.props.id)
+    }
+
 render(){
     let {firstname, lastname, team, id} = this.props;
     if (team === "dev") {
@@ -24,17 +40,16 @@ render(){
     else if (team === "sales"){
         team = "Sales"
     }
+    
     return(
-    <Paper>
+    <Paper variant="outlined" elevation={3} >
         <Card>
             <Grid container alignContent='center' alignItems="center" direction='column'> 
                 <Grid item xs={8}>
                     
                             <CardHeader
                                 avatar={
-                                <Avatar>
-                                {firstname[0]+lastname[0]}
-                                </Avatar>
+                                this.renderAvatar()
                                 }
                                 title={firstname+" "+lastname}
                                 subheader={team
@@ -43,11 +58,9 @@ render(){
                 </Grid>
 
                 <Grid item xs={4}>
-                    <Link to={"/mur/?id=" + id}>
-                        <Button variant="contained" color="default">
-                                Visit Profile
-                        </Button>
-                    </Link>
+                    <Button color="secondary" variant="contained" onClick={this.profileRedirect}>
+                            Visit Profile
+                    </Button>
                 </Grid>
             </Grid>
         </Card>
@@ -59,4 +72,4 @@ render(){
 }
 }
 
-export default UserCompo ;
+export default withRouter(UserCompo) ;

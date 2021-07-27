@@ -16,8 +16,8 @@ class FormSignup extends React.Component{
             nom:'',
             mail : '',
             password:'',
-            team:'',
-            isAdmin:'',
+            team:'dev',
+            isAdmin: false,
             file:''
         }
     }

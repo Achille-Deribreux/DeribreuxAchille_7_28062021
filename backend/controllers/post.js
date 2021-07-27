@@ -36,6 +36,8 @@ exports.createPost = (req, res, next)=>{
             const newPost = models.Posts.create({
                 UserId : userId,
                 content: content,
+                likes:0,
+                userliked : ''
             })
             .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ? 
             .catch(error => {
