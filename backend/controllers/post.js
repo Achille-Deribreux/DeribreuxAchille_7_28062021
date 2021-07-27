@@ -15,8 +15,6 @@ exports.getAll = (req, res, next)=>{
 exports.createPost = (req, res, next)=>{
     let userId = utils.getUserId(req.headers.authorization)
     let content = req.body.content;
-    
-    //attachement à faire
     models.Users.findOne({
         where: { id: userId }
     })
@@ -25,9 +23,12 @@ exports.createPost = (req, res, next)=>{
         const newPost = models.Posts.create({
             UserId : userId,
             content: content,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+            likes:0,
+            userliked : ''
         })
-        .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ? 
+        .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ?
+
         .catch(error => {
             res.status(500).json({ error })
         })
@@ -114,7 +115,6 @@ exports.modifyPost = (req, res, next ) => {
     })
     .catch(error => res.status(500).json(error));
 }
-
 exports.deletePost = (req, res, next ) => {
 
     let id = utils.getUserId(req.headers.authorization);
@@ -157,6 +157,7 @@ exports.deletePost = (req, res, next ) => {
     )
     .catch(error => res.status(500).json(error));
 }
+
 
 exports.postComment = (req, res, next ) => {
     let userid = utils.getUserId(req.headers.authorization);
@@ -212,4 +213,72 @@ exports.deleteComment = (req, res, next ) => {
             }
     })
     .catch(error => res.status(500).json(error));
+}
+
+
+exports.likePost = (req, res, next ) => { 
+    let userId = req.body.userId;
+    let postid = req.body.postId;
+
+    models.Posts.findOne(
+        {
+            where: {id:postid}
+        })
+        .then((postFind) => {
+            let userLikedString =  postFind.userliked;
+            let userLikedStringConcat = userLikedString.concat(userId+";");
+            let likes = postFind.likes + 1;
+            models.Posts.update(
+                {
+                    userliked : userLikedStringConcat,
+                    likes : likes
+                },
+                { where: { id: postid } }
+            )
+            .then(() => res.status(201).json('liked !'))
+            .catch(err => res.status(500).json(err))
+        
+        })
+        .catch(err => res.status(500).json(err))
+
+}
+
+exports.unLikePost = (req, res, next) => {
+    let userId = req.body.userId;
+    let postid = req.body.postId;
+
+    models.Posts.findOne(
+        {
+            where: {id:postid}
+        })
+        .then((postFind) => {
+            let userLikedString =  postFind.userliked;
+            console.log("string récupéré", userLikedString)
+            let userLikedStringArray = userLikedString.split(";");
+            console.log("string split en array", userLikedStringArray)
+            console.log("user id", userId)
+            for (let i = 0;i < userLikedStringArray.length;i++){
+                console.log("valeurs qui défilent", userLikedStringArray[i])
+                if (userLikedStringArray[i] == (userId)){
+                    userLikedStringArray.splice(i,1);
+                    console.log("après slice", userLikedStringArray);
+                }
+            }
+            console.log("avant join", userLikedStringArray);
+            let concatUserLikedStringArray = userLikedStringArray.join(';')
+            console.log("après join", concatUserLikedStringArray);
+            let likes = postFind.likes - 1;
+
+            models.Posts.update(
+                {
+                    userliked : concatUserLikedStringArray,
+                    likes : likes
+                },
+                { where: { id: postid } }
+            )
+            .then(() => res.status(201).json('unliked !'))
+            .catch(err => res.status(500).json(err))
+        
+        })
+        .catch(err => res.status(500).json(err))
 }

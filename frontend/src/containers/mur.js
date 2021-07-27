@@ -68,7 +68,7 @@ pauseOnHover
               <Row className="m-2">
                 <Col>
                   <Paper variant="outlined" elevation={3} >
-                    <Post key = {item.id} id={item.id} content={item.content} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                    <Post key = {item.id} id={item.id} content={item.content} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                   </Paper>
                 </Col>
               </Row>

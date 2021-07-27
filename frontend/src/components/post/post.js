@@ -70,7 +70,7 @@ class Post extends React.Component{
               progress: undefined,
               });
               setTimeout(() => { 
-                this.props.history.push('/mur/?id=?'+this.props.userId);
+                this.props.history.push('/mur/?id='+this.props.userId);
               }, 1500)
           })
           .catch((res)=>console.log(res))
@@ -125,14 +125,48 @@ class Post extends React.Component{
             return <Avatar>{this.state.items.firstname[0]+this.state.items.lastname[0]} </Avatar>
         }
     }
+    unlikePost = () => {
+
+    }
+    likePost = () => {
+
+    }
+
+
+    renderLikeButton(){
+    const {userliked} = this.props;
+    console.log("userLiked",userliked)
+    /*
+    let userLikedArray = usersliked.split(';');
+      if (userLikedArray.includes(this.state.connectedUserId)){
+        <IconButton aria-label="add to favorites" onClick={this.unlikePost}>
+                  {this.props.likes}
+                  <FavoriteIcon style={{ color: 'red' }}/>
+        </IconButton>
+      }else{
+        <IconButton aria-label="add to favorites" onClick={this.likePost}>
+                  {this.props.likes}
+                  <FavoriteIcon />
+        </IconButton>
+      }*/
+
+
+
+
+
+      /*
+      <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                  */ 
+
+    }
 
       cardActionsRender = () => {
         if ((this.props.userId === this.state.connectedUserId) || (this.state.items.isAdmin === true) ){
             return(
               <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
+                {this.renderLikeButton()}
                   <IconButton aria-label="See comments" onClick={this.showFullPost}>
                     <ChatIcon />
                   </IconButton>
