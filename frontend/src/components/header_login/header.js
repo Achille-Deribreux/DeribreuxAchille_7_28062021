@@ -1,30 +1,17 @@
 import React from 'react';
 import "./header.css";
 //Imports Bootstrap
-import { Container, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
+import { Container, Navbar,Nav } from 'react-bootstrap';
 import PersonIcon from '@material-ui/icons/Person';
 
 //Imports Material UI
-import Avatar from '@material-ui/core/Avatar';
 import logo from '../../assets/icon-left-font-monochrome-white.svg'
-import Chip from '@material-ui/core/Chip';
-import { Icon, IconButton, Typography } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { IconButton, Typography } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import CreateIcon from '@material-ui/icons/Create';
-import CancelIcon from '@material-ui/icons/Cancel';
 
+import { withRouter } from "react-router-dom";
 
-
-
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    withRouter 
-  } from "react-router-dom";
-import { render } from 'react-dom';
 
   //Texte Blanc pour les items header 
 
@@ -36,9 +23,6 @@ const WhiteTextTypography = withStyles({
   })(Typography);
 
 class Header extends React.Component{
-    constructor(props) {
-        super(props);
-      }
 
     connexionRedirect = () => {
          this.props.history.push("/login");

@@ -2,11 +2,10 @@ import React from 'react';
 import Header from '../components/header/header'
 import Post from '../components/post/post'
 import ProfileHeader from '../components/profileheader'
-import Grid from '@material-ui/core/Grid';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Paper from '@material-ui/core/Paper';
-import { Container, Row, Col, Navbar, NavDropdown, Nav, Button } from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap';
 
 
 class Home extends React.Component{

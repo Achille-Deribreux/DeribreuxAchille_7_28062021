@@ -1,22 +1,14 @@
 import React from 'react';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link, 
-    withRouter
-  } from "react-router-dom";
+import {withRouter} from "react-router-dom";
   
 
 class Comment extends React.Component {

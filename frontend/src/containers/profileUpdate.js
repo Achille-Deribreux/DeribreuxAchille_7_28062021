@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/header/header'
 import Grid from '@material-ui/core/Grid';
 import ProfileUpdateForm from '../components/profileUpdate/profileUpdateForm'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 class ProfileUpdate extends React.Component{
     componentDidMount(){

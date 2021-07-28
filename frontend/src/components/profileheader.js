@@ -1,21 +1,13 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import { Avatar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { Container, Row, Col, Navbar,NavDropdown,Nav, Button, Image, ButtonGroup } from 'react-bootstrap';
+import { Container, Row, Col, Button, Image, ButtonGroup } from 'react-bootstrap';
 import { withStyles } from "@material-ui/core/styles";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link, 
-  withRouter
-} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 const WhiteTextTypography = withStyles({
   root: {

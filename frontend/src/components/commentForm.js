@@ -1,14 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
-import { ToastContainer, toast } from 'react-toastify';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link, 
-    withRouter
-  } from "react-router-dom";
+import { toast } from 'react-toastify';
+import {withRouter} from "react-router-dom";
 import PropTypes from 'prop-types';
   
 class CommentForm extends React.Component {

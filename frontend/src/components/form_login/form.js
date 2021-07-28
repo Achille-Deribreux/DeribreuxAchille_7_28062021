@@ -1,12 +1,9 @@
 import React from 'react';
 import "./form.css";
 import Button from '@material-ui/core/Button';
-
-import TypeField from '../formItems/typeField'
-
-
+import { toast } from 'react-toastify';
 //Imports Bootstrap
-import { Container, Row, Col, Form, FormGroup, FormControl } from 'react-bootstrap';
+import { Container, Form} from 'react-bootstrap';
 
 class FormLogin extends React.Component{
 
@@ -42,15 +39,24 @@ class FormLogin extends React.Component{
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
-           
             },
             body: data
         })
         .then(response => response.json())
         .then((response) => {
+            toast.success('Profil Modifié!', {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+            setTimeout(() => { 
             this.loginResponseTranfer(response);
             localStorage.setItem('token', response.token)
-            /*window.location="./home"*/
+            }, 1000)
         
         })
         .catch(function(error) {

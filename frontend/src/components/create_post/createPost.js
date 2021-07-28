@@ -1,20 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Axios from 'axios';
 import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
-import { withStyles } from "@material-ui/core/styles";
 import WhiteTextTypography from '../WhiteTextTypo';
-import { ToastContainer, toast } from 'react-toastify';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link, 
-    withRouter
-  } from "react-router-dom";
+import { toast } from 'react-toastify';
+import {withRouter} from "react-router-dom";
+
 class CreatePost extends React.Component {
     constructor(props){
         super(props)

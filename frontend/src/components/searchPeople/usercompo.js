@@ -5,14 +5,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link, 
-    withRouter
-  } from "react-router-dom";
-import { IconButton } from '@material-ui/core';
+import {withRouter} from "react-router-dom";
+
 
 class UserCompo extends React.Component{
 
@@ -30,7 +24,7 @@ class UserCompo extends React.Component{
     }
 
 render(){
-    let {firstname, lastname, team, id} = this.props;
+    let {firstname, lastname, team} = this.props;
     if (team === "dev") {
          team = "Developpement"
     }

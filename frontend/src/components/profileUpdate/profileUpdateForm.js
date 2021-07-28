@@ -1,18 +1,9 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Container, Row, Col, Form, FormGroup, FormControl, FloatingLabel } from 'react-bootstrap';
-import Field from '../formItems/field'
-import TypeField from '../formItems/typeField'
+import { Container, Row, Col, Form, FloatingLabel } from 'react-bootstrap';
 import WhiteTextTypography from '../WhiteTextTypo'
-import { ToastContainer, toast } from 'react-toastify';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link, 
-    withRouter
-  } from "react-router-dom";
+import { toast } from 'react-toastify';
+import { withRouter} from "react-router-dom";
 
 class ProfileUpdateForm extends React.Component{
     constructor(props){

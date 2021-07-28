@@ -45,7 +45,7 @@ class Post extends React.Component{
 
       deletePost = () => {
         const deleteBody = new FormData();
-        const {userId,id} = this.props;
+        const {userId} = this.props;
         
         deleteBody.append('postId', this.props.id);
         deleteBody.append('author', userId);
@@ -228,7 +228,7 @@ class Post extends React.Component{
         }
       }
     render (){
-        const { content, date, imgUrl, likes, userId} = this.props;
+        const { content, date, imgUrl} = this.props;
         const  {isLoaded, items } = this.state;
 
       if (!isLoaded) {

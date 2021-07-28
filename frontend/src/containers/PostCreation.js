@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/header/header'
 import CreatePost from '../components/create_post/createPost'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 
 class PostCreation extends React.Component {

@@ -7,7 +7,7 @@ import CommentForm from '../components/commentForm'
 import Comment from '../components/comment'
 import List from '@material-ui/core/List';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class PostContainer extends React.Component {

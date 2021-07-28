@@ -5,26 +5,19 @@ import React from 'react';
 import "./header.css"; //A dégager 
 
 //Imports Bootstrap
-import { Container, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
+import { Container, Navbar,Nav } from 'react-bootstrap';
 
 //Imports Material UI
 import Avatar from '@material-ui/core/Avatar';
 import logo from '../../assets/icon-left-font-monochrome-white.svg'
-import Chip from '@material-ui/core/Chip';
-import { Icon, IconButton, Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { withStyles } from "@material-ui/core/styles";
 import CreateIcon from '@material-ui/icons/Create';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 //Import react-router
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link, 
-    withRouter
-  } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 
 //Texte Blanc pour les items header 
@@ -108,8 +101,6 @@ class Header extends React.Component {
         if (!isLoaded) {
             return <div>Chargement…</div>;
           } else {
-                //const murUrl =  "/mur/?id=" + items.userId;
-                const murUrl =  "/mur/?id="
                 return (
                 <Navbar bg="dark" expand="lg" variant="dark">
                     <Container>

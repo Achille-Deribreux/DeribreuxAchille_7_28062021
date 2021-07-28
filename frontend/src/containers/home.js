@@ -1,10 +1,9 @@
 import React from 'react';
 import Header from '../components/header/header'
 import Post from '../components/post/post'
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { Container, Row, Col, Navbar,NavDropdown,Nav, Button } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { Container, Row, Col } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 
 class Home extends React.Component{
   constructor(props) {
@@ -85,10 +84,10 @@ pauseOnHover
 <ToastContainer />
           <Container>
             {items.map(item => (
-              <Row className="m-1">
+              <Row className="m-1" key={item.id}>
                 <Col>
                   <Paper variant="outlined" elevation={3} >
-                    <Post key={item.id} id={item.id} reload={this.setToTrue} content={item.content} imgUrl={item.imageUrl} likes={item.likes} userliked={item.userliked} userId={item.userid} date={item.createdAt}/>
+                    <Post  id={item.id} reload={this.setToTrue} content={item.content} imgUrl={item.imageUrl} likes={item.likes} userliked={item.userliked} userId={item.userid} date={item.createdAt}/>
                   </Paper>
                 </Col>
               </Row>

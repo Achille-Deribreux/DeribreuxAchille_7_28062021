@@ -1,6 +1,5 @@
 import React from 'react';
 import UserCompo from './usercompo'
-import Grid from '@material-ui/core/Grid';
 import { Tabs, Tab, Container, Row, Col } from 'react-bootstrap';
 
 class SearchCompo extends React.Component{

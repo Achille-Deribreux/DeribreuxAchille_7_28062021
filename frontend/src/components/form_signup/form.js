@@ -2,11 +2,8 @@ import React from 'react';
 import "./form.css";
 import Button from '@material-ui/core/Button';
 
-import Field from '../formItems/field'
-import TypeField from '../formItems/typeField'
-
 //Imports Bootstrap
-import { Container, Row, Col, Form, FormGroup, FormControl, FloatingLabel } from 'react-bootstrap';
+import { Container, Form, FloatingLabel } from 'react-bootstrap';
 
 class FormSignup extends React.Component{
     constructor(props){
