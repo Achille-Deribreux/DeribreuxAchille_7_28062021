@@ -9,17 +9,17 @@ const router = express.Router()
 
 //Routes
 //CommentRoutes
-router.put('/likePost', multer,postCtrl.likePost);
-router.put('/unlikePost', multer, postCtrl.unLikePost);
-router.get('/getAllComments/:id', postCtrl.getAllComments)
-router.post('/postComment', multer, postCtrl.postComment)
-router.delete('/deleteComment', multer, postCtrl.deleteComment)
+router.put('/likePost', auth, multer,postCtrl.likePost);
+router.put('/unlikePost', auth, multer, postCtrl.unLikePost);
+router.get('/getAllComments/:id',auth,  postCtrl.getAllComments)
+router.post('/postComment', auth, multer, postCtrl.postComment)
+router.delete('/deleteComment', auth, multer, postCtrl.deleteComment)
 router.get('/home', postCtrl.getAll);
-router.post('/update', multer, postCtrl.modifyPost)
-router.post('/write', multer, postCtrl.createPost);
-router.delete('/delete', multer,postCtrl.deletePost)
-router.get('/getpost/:id', postCtrl.getOnePost);
-router.get('/:id', postCtrl.getUserPosts);
+router.post('/update', auth, multer, postCtrl.modifyPost)
+router.post('/write', auth, multer, postCtrl.createPost);
+router.delete('/delete', auth, multer,postCtrl.deletePost)
+router.get('/getpost/:id', auth, postCtrl.getOnePost);
+router.get('/:id', auth, postCtrl.getUserPosts);
 
 
 //Export

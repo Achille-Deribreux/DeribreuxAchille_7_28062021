@@ -20,13 +20,10 @@ class Home extends React.Component{
     this.setState({
       reload : true
     })
-    console.log("ça set true", this.state.reload);
   }
 
   componentDidUpdate(){
-    console.log("did update vaut", this.state.reload)
     if(this.state.reload){
-        console.log("ça passe dans la condition")
     this.apiCall();
     this.setState({
       reload:false

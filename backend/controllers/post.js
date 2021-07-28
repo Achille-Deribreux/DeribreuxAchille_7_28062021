@@ -230,6 +230,8 @@ exports.likePost = (req, res, next ) => {
         })
         .then((postFind) => {
             let userLikedString =  postFind.userliked;
+            let userLikedStringArray = userLikedString.split(";");
+            if(!(userLikedStringArray.includes(userId.toString()))){
             let userLikedStringConcat = userLikedString.concat(userId+";");
             let likes = postFind.likes + 1;
             models.Posts.update(
@@ -241,6 +243,9 @@ exports.likePost = (req, res, next ) => {
             )
             .then(() => res.status(201).json('liked !'))
             .catch(err => res.status(500).json(err))
+            }else{
+                res.status(401).json("non autorisé")
+            }
         
         })
         .catch(err => res.status(500).json(err))
@@ -259,30 +264,35 @@ exports.unLikePost = (req, res, next) => {
             let userLikedString =  postFind.userliked;
             console.log("string récupéré", userLikedString)
             let userLikedStringArray = userLikedString.split(";");
+
+
             console.log("string split en array", userLikedStringArray)
             console.log("user id", userId)
-            for (let i = 0;i < userLikedStringArray.length;i++){
-                console.log("valeurs qui défilent", userLikedStringArray[i])
-                if (userLikedStringArray[i] == (userId)){
-                    userLikedStringArray.splice(i,1);
-                    console.log("après slice", userLikedStringArray);
+            if(userLikedStringArray.includes(userId.toString())){
+                for (let i = 0;i < userLikedStringArray.length;i++){
+                    console.log("valeurs qui défilent", userLikedStringArray[i])
+                    if (userLikedStringArray[i] == (userId)){
+                        userLikedStringArray.splice(i,1);
+                        console.log("après slice", userLikedStringArray);
+                    }
                 }
-            }
-            console.log("avant join", userLikedStringArray);
-            let concatUserLikedStringArray = userLikedStringArray.join(';')
-            console.log("après join", concatUserLikedStringArray);
-            let likes = postFind.likes - 1;
+                console.log("avant join", userLikedStringArray);
+                let concatUserLikedStringArray = userLikedStringArray.join(';')
+                console.log("après join", concatUserLikedStringArray);
+                let likes = postFind.likes - 1;
 
-            models.Posts.update(
-                {
-                    userliked : concatUserLikedStringArray,
-                    likes : likes
-                },
-                { where: { id: postid } }
-            )
-            .then(() => res.status(201).json('unliked !'))
-            .catch(err => res.status(500).json(err))
-        
+                models.Posts.update(
+                    {
+                        userliked : concatUserLikedStringArray,
+                        likes : likes
+                    },
+                    { where: { id: postid } }
+                )
+                .then(() => res.status(201).json('unliked !'))
+                .catch(err => res.status(500).json(err))
+            }else{
+                res.status(401).json("non autorisé")
+            }
         })
         .catch(err => res.status(500).json(err))
 }

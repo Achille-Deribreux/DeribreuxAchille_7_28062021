@@ -12,15 +12,15 @@ router.delete ('/delete', auth, multer, userCtrl.deleteUser);
 
 router.post ('/updateuser', auth, multer, userCtrl.updateUser);
 
-router.get('/getusers', userCtrl.getUsers);
+router.get('/getusers', auth, userCtrl.getUsers);
 
-router.get('/getuserId', userCtrl.getUserId);
+router.get('/getuserId', auth, userCtrl.getUserId);
 
 router.post('/signup', multer, userCtrl.signup);
 
 router.post('/login',  userCtrl.login);
 
-router.get('/:id', userCtrl.getUser);
+router.get('/:id', auth, userCtrl.getUser);
 
 
 //Export
