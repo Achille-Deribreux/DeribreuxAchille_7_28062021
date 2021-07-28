@@ -9,6 +9,10 @@ class Signup extends React.Component{
     this.state = {redirect : false}
   }
 
+  componentDidMount(){
+    document.title = "Groupomania | signup";    
+}
+
   signupResponseTranfer = (response) => {
     if (response.isAuth){
       this.setState({ redirect: true });

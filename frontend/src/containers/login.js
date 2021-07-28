@@ -10,6 +10,10 @@ class Login extends React.Component {
     this.state = {redirect : false}
   }
 
+  componentDidMount(){
+    document.title = "Groupomania | Login";    
+  }
+
   loginResponseTranfer = (response) => {
     if (response.isAuth){
       this.setState({ redirect: true });

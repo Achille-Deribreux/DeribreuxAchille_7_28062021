@@ -34,7 +34,7 @@ class PostContainer extends React.Component {
       }
 
     componentDidMount(){
-        console.log("premier call api")
+        document.title = "Groupomania";    
         this.apiCall()
     }
 
@@ -80,6 +80,10 @@ class PostContainer extends React.Component {
         console.log("ça set false", this.state.reload);
       }
 
+    nothing = () => {
+
+    }
+    
     render(){
     const  {isLoaded, item, comments} = this.state;
     
@@ -107,7 +111,7 @@ pauseOnHover
                     <Row>
                         <Col>
                             <Paper variant="outlined" elevation={3}>
-                                <Post key = {item.id} id={item.id} content={item.content} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                                <Post key = {item.id} id={item.id} content={item.content} reload={this.nothing} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                             </Paper>
                         </Col>
                     </Row>
@@ -117,7 +121,7 @@ pauseOnHover
                             <List>
                                 
                                 {comments.map(comment => (
-                                <Comment key={comment.id} id={comment.id} content={comment.content} userId={comment.userid} postId={this.state.postId} date={comment.createdAt}/>
+                                <Comment key={comment.id} id={comment.id} reload={this.setToFalse} content={comment.content} userId={comment.userid} postId={this.state.postId} date={comment.createdAt}/>
                             ))}
                             </List>
                         </Col>

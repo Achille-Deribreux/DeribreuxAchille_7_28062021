@@ -110,7 +110,7 @@ class Comment extends React.Component {
                 progress: undefined,
                 });
                 setTimeout(() => { 
-                    this.props.history.push('/home');
+                    this.props.reload()
                 }, 1500)
           })
           .catch((res)=>console.log(res))

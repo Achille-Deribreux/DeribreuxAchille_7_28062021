@@ -28,10 +28,16 @@ class Post extends React.Component{
           error: null,
           isLoaded: false,
           items: {},
-          connectedUserId :''
+          connectedUserId :'',
+          likes:0,
+          userliked : ""
         };
       }
-      
+
+    componentDidMount(){
+        this.apiCall()
+    }
+  
       editRedirect = () => {
         const {id} = this.props;
         this.props.history.push("/update/?id="+id);
@@ -61,17 +67,31 @@ class Post extends React.Component{
               draggable: true,
               progress: undefined,
               });
-              setTimeout(() => { 
-                this.props.history.push('/mur/?id='+this.props.userId);
+              setTimeout(() => {
+                this.props.reload();
+                this.props.history.push('/home');
               }, 1500)
           })
           .catch((res)=>console.log(res))
       }
 
-      componentDidMount(){
+
+      apiCall(){
         let token = localStorage.getItem('token');
-        const {userId}=this.props;
-        fetch("http://localhost:3000/api/auth/" + userId ,{
+        const {userId,id}=this.props;
+
+        fetch("http://localhost:3000/api/post/getpost/"+id,{
+          headers:{
+            'Authorization' : 'bearer ' + token
+          }
+        })
+        .then(response => response.json())
+        .then((res)=>{
+          this.setState({
+            likes : res.likes,
+            userliked:res.userliked
+          })
+          fetch("http://localhost:3000/api/auth/" + userId ,{
             headers:{
               'Authorization' : 'bearer ' + token
             }
@@ -100,7 +120,12 @@ class Post extends React.Component{
         .catch(function(err){
             alert(err) // Affiche l'erreur dans une alert si erreur 
           });
+        })
+        .catch(function(err){
+          alert(err) // Affiche l'erreur dans une alert si erreur 
+      })
       }
+
       profileRedirect = () => {
         this.props.history.push("/mur/?id="+this.props.userId)
       }
@@ -129,7 +154,7 @@ class Post extends React.Component{
           body : unlikePostBody
         })
         .then((results) => {
-          console.log(results)
+          this.apiCall()
         })
       .catch(function(err){
         alert(err) // Affiche l'erreur dans une alert si erreur 
@@ -149,7 +174,7 @@ class Post extends React.Component{
           body : likePostBody
         })
         .then((results) => {
-          console.log(results)
+          this.apiCall()
         })
       .catch(function(err){
         alert(err) // Affiche l'erreur dans une alert si erreur 
@@ -159,16 +184,16 @@ class Post extends React.Component{
 
 
     renderLikeButton(){
-    const {userliked} = this.props;
+    const {userliked} = this.state;
     let userLikedArray = userliked.split(';');
       if (userLikedArray.includes(this.state.connectedUserId.toString())){
         return(<IconButton aria-label="add to favorites" onClick={this.unlikePost}>
-                  {this.props.likes}
+                  {this.state.likes}
                   <FavoriteIcon style={{ color: 'red' }}/>
         </IconButton>)
       }else{
         return(<IconButton aria-label="add to favorites" onClick={this.likePost}>
-                  {this.props.likes}
+                  {this.state.likes}
                   <FavoriteIcon />
         </IconButton>)
       }

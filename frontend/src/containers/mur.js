@@ -16,11 +16,35 @@ class Home extends React.Component{
         error: null,
         isLoaded: false,
         items: [],
-        id : ''
+        id : '',
+        reload:false
       };
     }
+
+    setToTrue = () => {
+      this.setState({
+        reload : true
+      })
+      console.log("ça set true", this.state.reload);
+    }
   
-    componentDidMount() {
+    componentDidUpdate(){
+      console.log("did update vaut", this.state.reload)
+      if(this.state.reload){
+          console.log("ça passe dans la condition")
+      this.apiCall();
+      this.setState({
+        reload:false
+      })
+      }
+  }
+
+  componentDidMount() {
+    this.apiCall()
+    document.title = "Groupomania | Home";    
+  }
+  
+    apiCall() {
       let token = localStorage.getItem('token');
       const id = (new URL(document.location)).searchParams.get('id');
       this.setState({id : id});
@@ -68,7 +92,7 @@ pauseOnHover
               <Row className="m-2">
                 <Col>
                   <Paper variant="outlined" elevation={3} >
-                    <Post key = {item.id} id={item.id} content={item.content} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                    <Post key = {item.id} id={item.id} content={item.content} reload={this.setToTrue} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                   </Paper>
                 </Col>
               </Row>

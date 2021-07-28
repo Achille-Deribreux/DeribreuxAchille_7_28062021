@@ -5,6 +5,9 @@ import ProfileUpdateForm from '../components/profileUpdate/profileUpdateForm'
 import { ToastContainer, toast } from 'react-toastify';
 
 class ProfileUpdate extends React.Component{
+    componentDidMount(){
+        document.title = "Groupomania | Modifier son profil";    
+    }
 
     render (){
         return (

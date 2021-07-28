@@ -12,11 +12,35 @@ class Home extends React.Component{
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      reload : false
     };
   }
 
+  setToTrue = () => {
+    this.setState({
+      reload : true
+    })
+    console.log("ça set true", this.state.reload);
+  }
+
+  componentDidUpdate(){
+    console.log("did update vaut", this.state.reload)
+    if(this.state.reload){
+        console.log("ça passe dans la condition")
+    this.apiCall();
+    this.setState({
+      reload:false
+    })
+    }
+}
+
   componentDidMount() {
+    this.apiCall()
+    document.title = "Groupomania | Home";    
+  }
+
+  apiCall= () => {
     let token = localStorage.getItem('token');
     fetch("http://localhost:3000/api/post/home",{
       headers:{
@@ -35,6 +59,8 @@ class Home extends React.Component{
         alert(err) // Affiche l'erreur dans une alert si erreur 
       });
   }
+
+
   render(){
     const  {isLoaded, items } = this.state;
       if (!isLoaded) {
@@ -62,7 +88,7 @@ pauseOnHover
               <Row className="m-1">
                 <Col>
                   <Paper variant="outlined" elevation={3} >
-                    <Post key={item.id} id={item.id} content={item.content} imgUrl={item.imageUrl} likes={item.likes} userliked={item.userliked} userId={item.userid} date={item.createdAt}/>
+                    <Post key={item.id} id={item.id} reload={this.setToTrue} content={item.content} imgUrl={item.imageUrl} likes={item.likes} userliked={item.userliked} userId={item.userid} date={item.createdAt}/>
                   </Paper>
                 </Col>
               </Row>

@@ -5,6 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 class PostCreation extends React.Component {
+
+    componentDidMount(){
+        document.title = "Groupomania | Créer un post";    
+    }
     render(){
         return(
             <div>

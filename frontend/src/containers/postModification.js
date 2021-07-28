@@ -5,6 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 class PostModification extends React.Component {
+    componentDidMount(){
+        document.title = "Groupomania | Modifier un post";    
+    }
     render(){
         return(
             <div>

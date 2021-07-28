@@ -14,7 +14,7 @@ router.put('/unlikePost', multer, postCtrl.unLikePost);
 router.get('/getAllComments/:id', postCtrl.getAllComments)
 router.post('/postComment', multer, postCtrl.postComment)
 router.delete('/deleteComment', multer, postCtrl.deleteComment)
-router.get('/home',postCtrl.getAll);
+router.get('/home', postCtrl.getAll);
 router.post('/update', multer, postCtrl.modifyPost)
 router.post('/write', multer, postCtrl.createPost);
 router.delete('/delete', multer,postCtrl.deletePost)
