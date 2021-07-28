@@ -6,7 +6,8 @@ const postRoutes = require('./routes/post');
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const bodyParser = require('body-parser');
-const cors = require('cors')
+const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();//crée une app express
 
@@ -38,8 +39,8 @@ app.use((req, res, next) => {
 app.use('/api/auth',userRoutes);
 app.use('/api/post',postRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
-//redirection vers les routes
 
-//
+//Use le package helmet
+app.use(helmet());
 
 module.exports = app;//exporte l'application pour pourvoir l'utiliser depuis les autres fichiers tels que le serveur node
