@@ -2,17 +2,13 @@ import Header from '../components/header_login/header';
 import FormSignup from '../components/form_signup/form';
 import React from 'react';
 import { withRouter } from "react-router-dom";
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 class Signup extends React.Component{
   constructor(props) {
     super(props);
     this.state = {redirect : false}
   }
-
-  componentDidMount(){
-    document.title = "Groupomania | signup";    
-}
 
   signupResponseTranfer = (response) => {
     if (response.isAuth){
@@ -23,7 +19,7 @@ class Signup extends React.Component{
   render(){
     const { redirect } = this.state;
     if (redirect) {
-      this.props.history.push('/home');
+      return this.props.history.push('/home');
     }
   return (
     <div>

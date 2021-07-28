@@ -19,7 +19,7 @@ class ProfileUpdateForm extends React.Component{
             userId : (new URL(document.location)).searchParams.get('id')
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         let token = localStorage.getItem('token');
         fetch("http://localhost:3000/api/auth/"+this.state.userId,{
             headers:{
@@ -170,7 +170,7 @@ class ProfileUpdateForm extends React.Component{
 
                 <Form.Group className="mb-3">
                     <FloatingLabel controlId="floatingSelect" label="Département">
-                        <Form.Select aria-label="Floating label select" lue={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
+                        <Form.Select aria-label="Floating label select" value={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
                                 <option value="dev">Développement</option>
                                 <option value="hr">Ressources Humaines</option>
                                 <option value="sales">Ventes</option>

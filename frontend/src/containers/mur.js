@@ -88,10 +88,10 @@ pauseOnHover
             <ProfileHeader userId={id} />
             <Container>
             {items.map(item => (
-              <Row className="m-2">
+              <Row className="m-2" key = {item.id}>
                 <Col>
                   <Paper variant="outlined" elevation={3} >
-                    <Post key = {item.id} id={item.id} content={item.content} reload={this.setToTrue} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
+                    <Post  id={item.id} content={item.content} reload={this.setToTrue} userliked={item.userliked} imgUrl={item.imageUrl}likes={item.likes} userId={item.userid} date={item.createdAt}/>
                   </Paper>
                 </Col>
               </Row>

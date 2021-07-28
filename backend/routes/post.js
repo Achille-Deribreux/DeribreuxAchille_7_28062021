@@ -9,7 +9,7 @@ const router = express.Router()
 
 //Routes
 //CommentRoutes
-router.put('/likePost', auth, multer,postCtrl.likePost);
+router.put('/likePost', auth, multer, postCtrl.likePost);
 router.put('/unlikePost', auth, multer, postCtrl.unLikePost);
 router.get('/getAllComments/:id',auth,  postCtrl.getAllComments)
 router.post('/postComment', auth, multer, postCtrl.postComment)

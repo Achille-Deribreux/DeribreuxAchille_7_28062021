@@ -30,7 +30,8 @@ class Post extends React.Component{
           items: {},
           connectedUserId :'',
           likes:0,
-          userliked : ""
+          userliked : "",
+          userIsAdmin :''
         };
       }
 
@@ -112,6 +113,20 @@ class Post extends React.Component{
                 this.setState({
                   connectedUserId : res.userId.userId
                 })
+                fetch("http://localhost:3000/api/auth/"+res.userId.userId,{
+                  headers:{
+                      'Authorization' : 'bearer ' + token
+                  }
+              })
+              .then(response => response.json())
+              .then((res) => {
+                this.setState({
+                  userIsAdmin : res.user.isadmin
+                })
+              })
+              .catch(function(err){
+                alert(err) // Affiche l'erreur dans une alert si erreur 
+              });
               })
               .catch(function(err){
                 alert(err) // Affiche l'erreur dans une alert si erreur 
@@ -200,7 +215,7 @@ class Post extends React.Component{
     }
 
       cardActionsRender = () => {
-        if ((this.props.userId === this.state.connectedUserId) || (this.state.items.isAdmin === true) ){
+        if ((this.props.userId === this.state.connectedUserId) || (this.state.userIsAdmin) ){
             return(
               <CardActions disableSpacing>
                 {this.renderLikeButton()}

@@ -22,22 +22,22 @@ class Login extends React.Component {
   render(){
     const { redirect } = this.state;
     if (redirect) {
-      this.props.history.push('/home');
+      return this.props.history.push('/home');
     }
     return (
       <div>
       <Header />
       <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        />
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
 {/* Same as */}
 <ToastContainer />
       <FormLogin loginResponseTranfer={this.loginResponseTranfer}/>
