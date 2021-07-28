@@ -1,7 +1,7 @@
 import Header from '../components/header_login/header';
 import FormSignup from '../components/form_signup/form';
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
 class Signup extends React.Component{
@@ -19,7 +19,7 @@ class Signup extends React.Component{
   render(){
     const { redirect } = this.state;
     if (redirect) {
-      return this.props.history.push('/home');
+      return <Redirect to='/home'/>;
     }
   return (
     <div>
@@ -43,4 +43,4 @@ pauseOnHover
   }
 }
 
-export default withRouter(Signup);
+export default Signup;

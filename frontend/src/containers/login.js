@@ -1,7 +1,7 @@
 import Header from '../components/header_login/header';
 import FormLogin from '../components/form_login/form';
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
 class Login extends React.Component {
@@ -22,8 +22,9 @@ class Login extends React.Component {
   render(){
     const { redirect } = this.state;
     if (redirect) {
-      return this.props.history.push('/home');
+      return <Redirect to='/home'/>;
     }
+    
     return (
       <div>
       <Header />
@@ -45,4 +46,4 @@ class Login extends React.Component {
     );
 }
 }
-export default withRouter(Login);
+export default Login;

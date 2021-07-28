@@ -44,7 +44,29 @@ class FormLogin extends React.Component{
         })
         .then(response => response.json())
         .then((response) => {
-            toast.success('Profil Modifié!', {
+            if(response.error === "utilisateur non trouvé !"){
+                toast.error('Utilisateur inexistant', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
+            }else if(response.error === "mdp incorrect!"){
+                toast.error('Mot de passe incorrect !', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
+            } else{
+                localStorage.setItem('token', response.token)
+            toast.success('Connecté', {
                 position: "top-right",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -55,8 +77,8 @@ class FormLogin extends React.Component{
                 });
             setTimeout(() => { 
             this.loginResponseTranfer(response);
-            localStorage.setItem('token', response.token)
             }, 1000)
+            }
         
         })
         .catch(function(error) {
