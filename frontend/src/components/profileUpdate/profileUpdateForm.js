@@ -140,28 +140,28 @@ class ProfileUpdateForm extends React.Component{
 
             <Form className="w-50 m-auto p-3">
                 <Form.Group className="mb-3">
-                    <Form.Label>Prénom :</Form.Label>
-                    <Form.Control  name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
+                    <Form.Label htmlFor="first">Prénom :</Form.Label>
+                    <Form.Control  name="prenom" id="first" value={this.state.prenom} onChange={this.handlePrenom}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Nom :</Form.Label>
-                    <Form.Control name="nom" value={this.state.nom} onChange={this.handleNom} />
+                    <Form.Label htmlFor="lastname">Nom :</Form.Label>
+                    <Form.Control name="nom" value={this.state.nom} id="lastname" onChange={this.handleNom} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Aresse mail :</Form.Label>
-                    <Form.Control name="mail" type="email" value={this.state.mail} onChange={this.handleMail} />
+                    <Form.Label htmlFor="email">Aresse mail :</Form.Label>
+                    <Form.Control name="mail" type="email" value={this.state.mail} id="email" onChange={this.handleMail} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Mot De Passe :</Form.Label>
-                    <Form.Control name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                    <Form.Label htmlFor="password" >Mot De Passe :</Form.Label>
+                    <Form.Control name="password" type="password" value={this.state.password} id="password" onChange={this.handlePass} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <FloatingLabel controlId="floatingSelect" label="Droits">
-                        <Form.Select aria-label="Floating label select" value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
+                    <FloatingLabel htmlFor="droits" controlId="floatingSelect" label="Droits">
+                        <Form.Select aria-label="Floating label select" value={this.state.isAdmin} id="droits" onChange={this.handleIsAdmin} name="droits">
                             <option value="false">Classique</option>
                             <option value="true">Administrateur</option>
                         </Form.Select>
@@ -169,8 +169,8 @@ class ProfileUpdateForm extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <FloatingLabel controlId="floatingSelect" label="Département">
-                        <Form.Select aria-label="Floating label select" value={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
+                    <FloatingLabel htmlFor="departement" controlId="floatingSelect" label="Département">
+                        <Form.Select aria-label="Floating label select" value={this.state.team} id="departement" onChange={this.handleTeam} name="departement">
                                 <option value="dev">Développement</option>
                                 <option value="hr">Ressources Humaines</option>
                                 <option value="sales">Ventes</option>
@@ -179,7 +179,7 @@ class ProfileUpdateForm extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Photo de profil :</Form.Label>
+                    <Form.Label htmlFor="file">Photo de profil :</Form.Label>
                     <Form.Control  type="file" id="file" onChange={this.handleFileChange} />
                 </Form.Group>
 

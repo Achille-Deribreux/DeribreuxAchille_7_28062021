@@ -1,9 +1,9 @@
 import React from 'react';
 import "./form.css";
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 //Imports Bootstrap
-import { Container, Form} from 'react-bootstrap';
+import { Container, Form, Button} from 'react-bootstrap';
 
 class FormLogin extends React.Component{
 
@@ -13,14 +13,12 @@ class FormLogin extends React.Component{
     }
     //state erreur, validation email, ... 
     handleMail = (e) => {
-        console.log(e.target.value);
        this.setState({
            mail: e.target.value
        })
     }
 
     handlePass = (e) => {
-        console.log(e.target.value);
         this.setState({
             password: e.target.value
         })
@@ -91,19 +89,19 @@ class FormLogin extends React.Component{
         localStorage.clear();
         return(
             <Container className="m-auto">
-                <Form className="w-50 m-auto">
+                <Form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                     <Form.Group className="my-3">
-                        <Form.Label>Adresse mail :</Form.Label>
-                        <Form.Control  name="mail" type="email" value={this.state.mail} onChange={this.handleMail}/>
+                        <Form.Label htmlFor="email">Adresse mail :</Form.Label>
+                        <Form.Control  name="mail" id="email" type="email" value={this.state.mail} onChange={this.handleMail}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Mot de passe :</Form.Label>
-                        <Form.Control name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                        <Form.Label htmlFor="password">Mot de passe :</Form.Label>
+                        <Form.Control name="password" id="password" type="password" value={this.state.password} onChange={this.handlePass} />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                            <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
+                            <Button color="primary" type="submit">
                                 Se connecter
                             </Button>
                     </Form.Group>

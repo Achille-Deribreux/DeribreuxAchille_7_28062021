@@ -104,7 +104,7 @@ class ModifyPost extends React.Component {
                     <Row>
                         <Col align="center">
                             <Form.Group className="my-3">
-                                <FloatingLabel label="Votre message :">
+                                <FloatingLabel htmlFor="content" label="Votre message :">
                                 <Form.Control
                                 as="textarea"
                                 style={{ height: '100px' }}
@@ -126,7 +126,7 @@ class ModifyPost extends React.Component {
                     <Row>
                         <Col align="center">
                             <Form.Group className="my-3">
-                                <Form.Label>Modifier l'image :</Form.Label>
+                                <Form.Label htmlFor="file">Modifier l'image :</Form.Label>
                                 <Form.Control type="file" id="file" onChange={this.handleFileChange} />
                             </Form.Group>
                         </Col>

@@ -23,31 +23,26 @@ class FormSignup extends React.Component{
         this.setState({
             prenom : e.target.value
         })
-        console.log(e.target.value)
     }
 
     handleNom = (e) => {
         this.setState({
             nom: e.target.value
         })
-        console.log(e.target.value)
     }
 
     handleMail = (e) => {
         this.setState({
             mail: e.target.value
         })
-        console.log(e.target.value)
     }
 
     handlePass = (e) => {
         this.setState({
             password: e.target.value
         })
-        console.log(e.target.value)
     }
     handleFileChange = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             file : e.target.files[0]
         })
@@ -56,13 +51,11 @@ class FormSignup extends React.Component{
         this.setState({
             team: e.target.value
         })
-        console.log(e.target.value)
     }
     handleIsAdmin = (e) => {
         this.setState({
             isAdmin: e.target.value
         })
-        console.log(e.target.value)
     }
     signupResponseTranfer = (response) => {
         this.props.signupResponseTranfer(response);
@@ -109,27 +102,27 @@ class FormSignup extends React.Component{
             <Container className="m-auto">
             <Form className="w-50 m-auto p-3">
                 <Form.Group className="mb-3">
-                    <Form.Label>Prénom :</Form.Label>
-                    <Form.Control  name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
+                    <Form.Label htmlFor="firstname">Prénom :</Form.Label>
+                    <Form.Control  id="firstname" name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Nom :</Form.Label>
-                    <Form.Control name="nom" value={this.state.nom} onChange={this.handleNom} />
+                    <Form.Label htmlFor="lastname">Nom :</Form.Label>
+                    <Form.Control id="lastname" name="nom" value={this.state.nom} onChange={this.handleNom} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Aresse mail :</Form.Label>
-                    <Form.Control name="mail" type="email" value={this.state.mail} onChange={this.handleMail} />
+                    <Form.Label htmlFor="email">Aresse mail :</Form.Label>
+                    <Form.Control id="email" name="mail" type="email" value={this.state.mail} onChange={this.handleMail} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Mot De Passe :</Form.Label>
-                    <Form.Control name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                    <Form.Label htmlFor="password">Mot De Passe :</Form.Label>
+                    <Form.Control id="password" name="password" type="password" value={this.state.password} onChange={this.handlePass} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <FloatingLabel controlId="floatingSelect" label="Droits">
+                    <FloatingLabel htmlFor="droits" controlId="floatingSelect" label="Droits">
                         <Form.Select aria-label="Floating label select" value={this.state.isAdmin} onChange={this.handleIsAdmin} name="droits" id="droits">
                             <option value="false" defaultValue>Classique</option>
                             <option value="true">Administrateur</option>
@@ -138,7 +131,7 @@ class FormSignup extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <FloatingLabel controlId="floatingSelect" label="Département">
+                    <FloatingLabel htmlFor="departement" controlId="floatingSelect" label="Département">
                         <Form.Select aria-label="Floating label select" lue={this.state.team} onChange={this.handleTeam} name="departement" id="departement">
                                 <option value="dev" defaultValue>Développement</option>
                                 <option value="hr">Ressources Humaines</option>
@@ -148,7 +141,7 @@ class FormSignup extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Photo de profil :</Form.Label>
+                    <Form.Label htmlFor="file">Photo de profil :</Form.Label>
                     <Form.Control  type="file" id="file" onChange={this.handleFileChange} />
                 </Form.Group>
 
@@ -159,11 +152,6 @@ class FormSignup extends React.Component{
                 </Form.Group>
             </Form>
         </Container>
-
-           /*
-                    <label htmlFor="file"> Photo de profil :</label>
-                    <input type="file" id="file" onChange={this.handleFileChange}/>
-                   */
     )}
 
 }
