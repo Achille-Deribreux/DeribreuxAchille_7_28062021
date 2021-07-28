@@ -18,7 +18,8 @@ class Comment extends React.Component {
             error: null,
             isLoaded: false,
             items: [],
-            connectedUserId :''
+            connectedUserId :'',
+            userIsAdmin :''
           };
     }
     
@@ -47,6 +48,20 @@ class Comment extends React.Component {
                 isLoaded: true,
                 connectedUserId : res.userId.userId
               })
+              fetch("http://localhost:3000/api/auth/"+res.userId.userId,{
+                  headers:{
+                      'Authorization' : 'bearer ' + token
+                  }
+              })
+              .then(response => response.json())
+              .then((res) => {
+                this.setState({
+                  userIsAdmin : res.user.isadmin
+                })
+              })
+              .catch(function(err){
+                alert(err) // Affiche l'erreur dans une alert si erreur 
+              });
             })
             .catch(function(err){
               alert(err) // Affiche l'erreur dans une alert si erreur 
@@ -67,7 +82,7 @@ class Comment extends React.Component {
     }
 
     renderActions = () => {
-        if ((this.props.userId === this.state.connectedUserId) || (this.state.items.isAdmin === true)) {
+        if ((this.props.userId === this.state.connectedUserId) || (this.state.userIsAdmin)) {
             return(
                 <ListItemIcon onClick={this.deleteComment}>
                     <CancelIcon />
@@ -80,6 +95,7 @@ class Comment extends React.Component {
     }
 
     deleteComment = () => {
+        console.log("delete comm");
         const {userId, id}=this.props;
         const deleteBody = new FormData();
         deleteBody.append("author" , userId)
@@ -92,6 +108,7 @@ class Comment extends React.Component {
             body : deleteBody
           })
           .then((res)=>{
+              console.log(res)
             toast.success('Commentaire supprimé !', {
                 position: "top-right",
                 autoClose: 1500,

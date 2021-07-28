@@ -124,7 +124,7 @@ exports.deletePost = (req, res, next ) => {
         where: { id: id }
     })
     .then(user => {
-        if (user && (user.isAdmin == true || user.id == req.body.author)) {
+        if (user && (user.isadmin == true || user.id == req.body.author)) {
             models.Posts
                 .findOne({
                     where: { id: req.body.postId }
@@ -198,7 +198,7 @@ exports.deleteComment = (req, res, next ) => {
         where: { id: id }
     })
     .then(user => {
-        if (user && (user.isAdmin == true || user.id == req.body.author)) {
+        if (user && (user.isadmin == true || user.id == req.body.author)) {
             models.Comments
                 .findOne({
                     where: { id: req.body.commentId }
