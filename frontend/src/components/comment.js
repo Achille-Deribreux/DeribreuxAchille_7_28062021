@@ -95,7 +95,6 @@ class Comment extends React.Component {
     }
 
     deleteComment = () => {
-        console.log("delete comm");
         const {userId, id}=this.props;
         const deleteBody = new FormData();
         deleteBody.append("author" , userId)
@@ -108,7 +107,6 @@ class Comment extends React.Component {
             body : deleteBody
           })
           .then((res)=>{
-              console.log(res)
             toast.success('Commentaire supprimé !', {
                 position: "top-right",
                 autoClose: 1500,

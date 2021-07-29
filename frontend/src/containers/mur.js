@@ -24,16 +24,13 @@ class Home extends React.Component{
       this.setState({
         reload : true
       })
-      console.log("ça set true", this.state.reload);
     }
   
     componentDidUpdate(){
-      console.log("did update vaut", this.state.reload)
       if(this.state.reload){
-          console.log("ça passe dans la condition")
-      this.apiCall();
-      this.setState({
-        reload:false
+        this.apiCall();
+        this.setState({
+          reload:false
       })
       }
   }
@@ -47,6 +44,7 @@ class Home extends React.Component{
       let token = localStorage.getItem('token');
       const id = (new URL(document.location)).searchParams.get('id');
       this.setState({id : id});
+      
       fetch("http://localhost:3000/api/post/".concat(id),{
         headers:{
           'Authorization' : 'bearer ' + token

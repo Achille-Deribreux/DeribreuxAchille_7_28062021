@@ -14,14 +14,12 @@ class CreatePost extends React.Component {
         }
     }
     handleContentChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             content : e.target.value
         })
     }
 
     handleFileChange = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             file : e.target.files[0]
         })

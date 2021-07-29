@@ -11,18 +11,6 @@ const helmet = require('helmet');
 
 const app = express();//crée une app express
 
-const sequelize = new Sequelize('p7_dev', 'achille', 'achille', {
-  host: 'localhost',
-  dialect: 'mysql'
-});
-
-/* TEST CONNEXION DB
-try {
-  sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}*/
 app.use(cors())
 
 app.use((req, res, next) => {

@@ -44,31 +44,26 @@ class ProfileUpdateForm extends React.Component{
         this.setState({
             prenom : e.target.value
         })
-        console.log(e.target.value)
     }
 
     handleNom = (e) => {
         this.setState({
             nom: e.target.value
         })
-        console.log(e.target.value)
     }
 
     handleMail = (e) => {
         this.setState({
             mail: e.target.value
         })
-        console.log(e.target.value)
     }
 
     handlePass = (e) => {
         this.setState({
             password: e.target.value
         })
-        console.log(e.target.value)
     }
     handleFileChange = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             file : e.target.files[0]
         })
@@ -77,13 +72,11 @@ class ProfileUpdateForm extends React.Component{
         this.setState({
             team: e.target.value
         })
-        console.log(e.target.value)
     }
     handleIsAdmin = (e) => {
         this.setState({
             isAdmin: e.target.value
         })
-        console.log(e.target.value)
     }
 
     signupResponseTranfer = (response) => {

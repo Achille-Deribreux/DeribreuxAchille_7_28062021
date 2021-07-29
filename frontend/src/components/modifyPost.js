@@ -27,7 +27,6 @@ class ModifyPost extends React.Component {
           })
           .then(response => response.json())
           .then((post)=>{
-              console.log(post)
               this.setState({
                 content: post.content,
                   file: post.imageUrl,
@@ -40,21 +39,18 @@ class ModifyPost extends React.Component {
     }
 
     handleContentChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             content : e.target.value
         })
     }
 
     handleFileChange = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             file : e.target.files[0]
         })
     }
     
     handleSubmit = (e) => {
-        console.log("body user id", this.state.userId);
         const postId = (new URL(document.location)).searchParams.get('id');
         const data = new FormData();
         data.append("postId", postId)

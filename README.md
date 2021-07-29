@@ -1,9 +1,8 @@
-DeribreuxAchille_28062021
+Projet 7 formation OpenClassRooms
 
-/*
-sequelize model:create --attributes "mail:string,firstname:string,lastname:string,password:string,team:string,isadmin:boolean,profileurl:string" --name Users
-
-sequelize model:create --attributes "userid:integer,content:text,imageUrl:string,userliked:text,likes:integer" --name Posts
-
-sequelize model:create --attributes "postid:integer,userid:integer,content:text" --name Comments
-*/
+1° npm install dans backend
+2° npm install dans frontend
+3° configurez votre db dans config/json
+4° sequelize db:migrate dans backend
+5° node server.js dans backend
+6° npm start dans frontend

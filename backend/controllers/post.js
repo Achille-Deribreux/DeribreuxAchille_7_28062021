@@ -5,13 +5,13 @@ require('dotenv').config();
 
 
 exports.getAll = (req, res, next)=>{
-
     models.Posts.findAll({
         order: [['createdAt', 'DESC']]
     })
     .then((posts)=> res.status(203).json(posts))
     .catch((error) => res.status(400).json({ error }));
 }
+
 exports.createPost = (req, res, next)=>{
     let userId = utils.getUserId(req.headers.authorization)
     let content = req.body.content;
@@ -27,7 +27,7 @@ exports.createPost = (req, res, next)=>{
             likes:0,
             userliked : ''
         })
-        .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ?
+        .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) })
 
         .catch(error => {
             res.status(500).json({ error })
@@ -39,7 +39,7 @@ exports.createPost = (req, res, next)=>{
                 likes:0,
                 userliked : ''
             })
-            .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) }) //Besoin des objets en réponse ? 
+            .then(newPost => { res.status(201).json({ 'post': newPost,'user' : user }) })
             .catch(error => {
                 res.status(500).json({ error })
             })

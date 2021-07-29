@@ -17,7 +17,6 @@ class CommentForm extends React.Component {
         this.setState({
             content : e.target.value
         })
-        console.log(e.target.value)
     }
 
     handleSubmit = () => {
@@ -44,7 +43,6 @@ class CommentForm extends React.Component {
                 draggable: true,
                 progress: undefined,
                 });
-                console.log(this.props.postid);
                 
                 setTimeout(() => { 
                     this.props.reload();
