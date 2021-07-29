@@ -17,7 +17,7 @@ import Search from './containers/search';
 import ModifyPost from './containers/postModification';
 import ProfileUpdate from './containers/profileUpdate';
 import Post from './containers/post';
-
+import {ProtectedRoute} from './components/protectedRoute'
 
 
 
@@ -31,13 +31,13 @@ ReactDOM.render(
           {/*<Redirect to="/home"/>*/}
          </Route> 
         <Route path="/login"  exact component={Login}/>
-        <Route path="/home"  exact component={Home}/>
-        <Route path="/create-post" exact component={PostCreation}/>
-        <Route path="/post/" component={Post}/>
-        <Route path="/mur/" component={Mur}/>
-        <Route path="/search" component={Search} />
-        <Route path="/update" component={ModifyPost} />
-        <Route path="/profileUpdate" component={ProfileUpdate} />
+        <ProtectedRoute path="/home"  exact component={Home}/>
+        <ProtectedRoute path="/create-post" exact component={PostCreation}/>
+        <ProtectedRoute path="/post/" component={Post}/>
+        <ProtectedRoute path="/mur/" component={Mur}/>
+        <ProtectedRoute path="/search" component={Search} />
+        <ProtectedRoute path="/update" component={ModifyPost} />
+        <ProtectedRoute path="/profileUpdate" component={ProfileUpdate} />
       </Switch>
   </Router>
   </React.StrictMode>,

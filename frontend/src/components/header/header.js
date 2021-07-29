@@ -18,7 +18,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 //Import react-router
 import {withRouter} from "react-router-dom";
-
+import auth from '../auth';
 
 //Texte Blanc pour les items header 
 const WhiteTextTypography = withStyles({
@@ -91,7 +91,9 @@ class Header extends React.Component {
     }
 
     disconnect = ()  => {
-        this.props.history.push("/login")
+        auth.logout(() => {
+            this.props.history.push("/");
+          });
     }
        
 

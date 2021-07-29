@@ -1,7 +1,8 @@
 import React from 'react';
 import "./form.css";
 import Button from '@material-ui/core/Button';
-
+import auth from '../auth';
+import {withRouter} from 'react-router-dom';
 //Imports Bootstrap
 import { Container, Form, FloatingLabel } from 'react-bootstrap';
 
@@ -88,10 +89,10 @@ class FormSignup extends React.Component{
         })
         .then(response => response.json())
         .then((response) => {
-            console.log(response)
-            localStorage.setItem('token', response.token)
-            this.signupResponseTranfer(response);
-        
+            localStorage.setItem('token', response.token);
+            auth.login(() => {
+                this.props.history.push("/home");
+              });
         })
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
@@ -158,4 +159,4 @@ class FormSignup extends React.Component{
 
 
 
-export default FormSignup;
+export default withRouter(FormSignup);

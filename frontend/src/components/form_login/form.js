@@ -4,7 +4,8 @@ import "./form.css";
 import { toast } from 'react-toastify';
 //Imports Bootstrap
 import { Container, Form, Button} from 'react-bootstrap';
-
+import auth from '../auth';
+import {withRouter} from 'react-router-dom'
 class FormLogin extends React.Component{
 
     constructor(props){
@@ -74,7 +75,9 @@ class FormLogin extends React.Component{
                 progress: undefined,
                 });
             setTimeout(() => { 
-            this.loginResponseTranfer(response);
+                auth.login(() => {
+                    this.props.history.push("/home");
+                  });
             }, 1000)
             }
         
@@ -113,4 +116,4 @@ class FormLogin extends React.Component{
 
 
 
-export default FormLogin;
+export default withRouter(FormLogin);
