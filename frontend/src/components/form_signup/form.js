@@ -3,6 +3,7 @@ import "./form.css";
 import Button from '@material-ui/core/Button';
 import auth from '../auth';
 import {withRouter} from 'react-router-dom';
+import { toast } from 'react-toastify';
 //Imports Bootstrap
 import { Container, Form, FloatingLabel } from 'react-bootstrap';
 
@@ -16,7 +17,13 @@ class FormSignup extends React.Component{
             password:'',
             team:'dev',
             isAdmin: false,
-            file:''
+            file:'',
+            mailRegex:new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
+            textRegex:new RegExp(/^[a-zA-Z\s,'-]*$/),
+            prenomValidation : false, 
+            nomValidation : false, 
+            mailValidation : false, 
+            passwordValidation : false
         }
     }
 
@@ -24,24 +31,45 @@ class FormSignup extends React.Component{
         this.setState({
             prenom : e.target.value
         })
+        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
+            this.setState({
+                prenomValidation : true
+            })
+        }
     }
 
     handleNom = (e) => {
         this.setState({
             nom: e.target.value
         })
+        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
+            this.setState({
+                nomValidation : true
+            })
+        }
     }
 
     handleMail = (e) => {
         this.setState({
             mail: e.target.value
         })
+        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
+            this.setState({
+                mailValidation : true
+            })
+        }
+        
     }
 
     handlePass = (e) => {
         this.setState({
             password: e.target.value
         })
+        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
+            this.setState({
+                passwordValidation : true
+            })
+        }
     }
     handleFileChange = (e) => {
         this.setState({
@@ -62,7 +90,9 @@ class FormSignup extends React.Component{
         this.props.signupResponseTranfer(response);
     }
     handleSubmit = (e) => {
-        //const data = JSON.stringify(this.state);
+        const {prenomValidation, nomValidation, mailValidation, passwordValidation} = this.state;
+
+        if (prenomValidation && nomValidation && mailValidation && passwordValidation){
         
         const data = new FormData();
         data.append("prenom",this.state.prenom);
@@ -97,6 +127,17 @@ class FormSignup extends React.Component{
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           });
+        }else {
+            toast.error('veuillez remplir le formulaire correctement', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+        }
     }
     render(){ 
         return(
