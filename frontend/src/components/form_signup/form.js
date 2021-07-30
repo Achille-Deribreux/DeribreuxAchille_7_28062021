@@ -149,7 +149,7 @@ class FormSignup extends React.Component{
 
                 <Form.Group className="mb-3">
                             <Button color="primary" type="submit">
-                                Se connecter
+                                S'inscrire
                             </Button>
                     </Form.Group>
             </Form>

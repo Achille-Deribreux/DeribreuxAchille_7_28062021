@@ -40,9 +40,11 @@ exports.signup = (req, res, next)=>{
                         isadmin : isAdmin,
                         profileurl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                     })
-                        .then(newUser => { res.status(201).json({
+                        .then(newUser => { 
+                            
+                            res.status(201).json({
                              'id': newUser.id,
-                             token: jwt.sign(
+                             'token': jwt.sign(
                                 { userId: newUser.id },
                                 process.env.TOKEN_KEY,
                                 { expiresIn: '24h' }
@@ -68,7 +70,10 @@ exports.signup = (req, res, next)=>{
                     isadmin : isAdmin,
                     //profileurl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                 })
-                    .then(newUser => { res.status(201).json({
+                    .then(newUser => { 
+                        console.log("on arrive ici")
+                        
+                        res.status(201).json({
                          'id': newUser.id,
                          token: jwt.sign(
                             { userId: newUser.id },
