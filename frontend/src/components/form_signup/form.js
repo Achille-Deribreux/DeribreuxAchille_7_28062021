@@ -1,11 +1,10 @@
 import React from 'react';
 import "./form.css";
-import Button from '@material-ui/core/Button';
 import auth from '../auth';
 import {withRouter} from 'react-router-dom';
 import { toast } from 'react-toastify';
 //Imports Bootstrap
-import { Container, Form, FloatingLabel } from 'react-bootstrap';
+import { Container, Form, FloatingLabel, Button } from 'react-bootstrap';
 
 class FormSignup extends React.Component{
     constructor(props){
@@ -17,13 +16,7 @@ class FormSignup extends React.Component{
             password:'',
             team:'dev',
             isAdmin: false,
-            file:'',
-            mailRegex:new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
-            textRegex:new RegExp(/^[a-zA-Z\s,'-]*$/),
-            prenomValidation : false, 
-            nomValidation : false, 
-            mailValidation : false, 
-            passwordValidation : false
+            file:''
         }
     }
 
@@ -31,68 +24,46 @@ class FormSignup extends React.Component{
         this.setState({
             prenom : e.target.value
         })
-        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
-            this.setState({
-                prenomValidation : true
-            })
-        }
     }
 
     handleNom = (e) => {
         this.setState({
             nom: e.target.value
         })
-        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
-            this.setState({
-                nomValidation : true
-            })
-        }
     }
 
     handleMail = (e) => {
         this.setState({
             mail: e.target.value
-        })
-        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
-            this.setState({
-                mailValidation : true
-            })
-        }
-        
+        }) 
     }
 
     handlePass = (e) => {
         this.setState({
             password: e.target.value
         })
-        if (e.target.value !== "" && this.state.textRegex.test(e.target.value) === true){
-            this.setState({
-                passwordValidation : true
-            })
-        }
     }
+
     handleFileChange = (e) => {
         this.setState({
             file : e.target.files[0]
         })
     }
+
     handleTeam = (e) => {
         this.setState({
             team: e.target.value
         })
     }
+
     handleIsAdmin = (e) => {
         this.setState({
             isAdmin: e.target.value
         })
     }
-    signupResponseTranfer = (response) => {
-        this.props.signupResponseTranfer(response);
-    }
+    
     handleSubmit = (e) => {
-        const {prenomValidation, nomValidation, mailValidation, passwordValidation} = this.state;
-
-        if (prenomValidation && nomValidation && mailValidation && passwordValidation){
+        e.preventDefault()
         
         const data = new FormData();
         data.append("prenom",this.state.prenom);
@@ -127,22 +98,11 @@ class FormSignup extends React.Component{
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           });
-        }else {
-            toast.error('veuillez remplir le formulaire correctement', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                });
-        }
     }
     render(){ 
         return(
             <Container className="m-auto">
-            <Form className="w-50 m-auto p-3">
+              <Form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="firstname">Prénom :</Form.Label>
                     <Form.Control  id="firstname" name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
@@ -188,10 +148,10 @@ class FormSignup extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
-                            S'inscrire
-                        </Button>
-                </Form.Group>
+                            <Button color="primary" type="submit">
+                                Se connecter
+                            </Button>
+                    </Form.Group>
             </Form>
         </Container>
     )}
