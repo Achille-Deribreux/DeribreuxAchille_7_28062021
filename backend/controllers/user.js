@@ -1,6 +1,6 @@
 //Imports
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const models = require ('../models');
 const utils  = require('../utils/utils');
