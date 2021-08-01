@@ -88,7 +88,7 @@ class CreatePost extends React.Component {
                         <Col align="center">
                             <Form.Group className="my-3">
                                 <Form.Label>Ajouter une image :</Form.Label>
-                                <Form.Control type="file" id="file" onChange={this.handleFileChange} />
+                                <Form.Control type="file" id="file" accept=".gif" onChange={this.handleFileChange} />
                             </Form.Group>
                         </Col>
                     </Row>
