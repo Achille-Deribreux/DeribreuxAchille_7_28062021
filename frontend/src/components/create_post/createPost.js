@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
+import { Container, Row, Col, Form, FloatingLabel, Button} from 'react-bootstrap';
 import WhiteTextTypography from '../WhiteTextTypo';
 import { toast } from 'react-toastify';
 import {withRouter} from "react-router-dom";
@@ -25,6 +24,7 @@ class CreatePost extends React.Component {
         })
     }
     handleSubmit = (e) => {
+        e.preventDefault()
         const data = new FormData();
         data.append("content", this.state.content)
         data.append("file", this.state.file)
@@ -66,6 +66,7 @@ class CreatePost extends React.Component {
                             </WhiteTextTypography>
                         </Col>
                     </Row>
+                    <Form onSubmit={this.handleSubmit} className="w-50 m-auto">
                     <Row>
                         <Col align="center">
                             <Form.Group className="my-3">
@@ -76,6 +77,7 @@ class CreatePost extends React.Component {
                                 name="content" id="content" 
                                 value={this.state.content} 
                                 onChange={this.handleContentChange}
+                                required
                                 />
                                 </FloatingLabel>
                             </Form.Group>
@@ -93,11 +95,12 @@ class CreatePost extends React.Component {
 
                     <Row>
                         <Col align="center" className="my-3">
-                            <Button size="large" variant="contained" color="secondary" onClick={this.handleSubmit}>
+                        <Button variant="danger" type="submit">
                                 Publier
                             </Button>
                         </Col>
                     </Row>
+                    </Form>
                 </Container>
         )
     }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Form, FloatingLabel} from 'react-bootstrap';
-import Button from '@material-ui/core/Button';
+import { Container, Row, Col, Form, FloatingLabel, Button} from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import {withRouter} from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -19,7 +18,8 @@ class CommentForm extends React.Component {
         })
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault()
         const {postid} = this.props;
         //userID à récupérer dans le back
         const data = new FormData()
@@ -58,25 +58,29 @@ class CommentForm extends React.Component {
         return(
             <Container className="my-2">
                 <Row>
+                    <Form onSubmit={this.handleSubmit}>
                     <Col xs={12}align="center">
+                        
                         <Form.Group>
                             <FloatingLabel label="Votre message :">
                                 <Form.Control
-                                    as="textarea"
+                                    //as="textarea"
                                     style={{ height: '80px' }}
                                     name="content" id="content" 
                                     value={this.state.content} 
                                     onChange={this.handleContent}
+                                    required
                                 />
                             </FloatingLabel>
                         </Form.Group>
                     </Col>
 
                     <Col xs={12} align="center" className="mt-3">
-                        <Button size="large" variant="contained" color="secondary" onClick={this.handleSubmit}>
+                        <Button variant="danger" type="submit">
                             Commenter
                         </Button>
                     </Col>
+                    </Form>
                 </Row>
             </Container>
         )

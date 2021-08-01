@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { Container, Row, Col, Form, FloatingLabel } from 'react-bootstrap';
+import { Container, Row, Col, Form, FloatingLabel, Button } from 'react-bootstrap';
 import WhiteTextTypography from '../WhiteTextTypo'
 import { toast } from 'react-toastify';
 import { withRouter} from "react-router-dom";
@@ -177,7 +176,7 @@ class ProfileUpdateForm extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>
+                        <Button variant="danger" onClick={this.handleSubmit}>
                             Modifier mon profil
                         </Button>
                 </Form.Group>

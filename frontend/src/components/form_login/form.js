@@ -95,16 +95,16 @@ class FormLogin extends React.Component{
                 <Form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                     <Form.Group className="my-3">
                         <Form.Label htmlFor="email">Adresse mail :</Form.Label>
-                        <Form.Control  name="mail" id="email" type="email" value={this.state.mail} onChange={this.handleMail}/>
+                        <Form.Control  name="mail" id="email" type="email" value={this.state.mail} onChange={this.handleMail} required/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label htmlFor="password">Mot de passe :</Form.Label>
-                        <Form.Control name="password" id="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                        <Form.Control name="password" id="password" type="password" value={this.state.password} onChange={this.handlePass} required/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                            <Button color="primary" type="submit">
+                            <Button variant="danger" type="submit">
                                 Se connecter
                             </Button>
                     </Form.Group>

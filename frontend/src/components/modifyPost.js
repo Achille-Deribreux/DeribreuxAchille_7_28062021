@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container, Row, Col, Form, FloatingLabel, Image} from 'react-bootstrap';
+import { Container, Row, Col, Form, FloatingLabel, Image, Button} from 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
-import Button from '@material-ui/core/Button';
 import WhiteTextTypography from './WhiteTextTypo'
 import { toast } from 'react-toastify';
 
@@ -130,7 +129,7 @@ class ModifyPost extends React.Component {
 
                     <Row>
                         <Col align="center" className="my-3">
-                            <Button size="large" variant="contained" color="secondary" onClick={this.handleSubmit}>
+                        <Button variant="danger" onClick={this.handleSubmit}>
                                 Modifier
                             </Button>
                         </Col>

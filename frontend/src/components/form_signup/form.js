@@ -2,7 +2,7 @@ import React from 'react';
 import "./form.css";
 import auth from '../auth';
 import {withRouter} from 'react-router-dom';
-import { toast } from 'react-toastify';
+
 //Imports Bootstrap
 import { Container, Form, FloatingLabel, Button } from 'react-bootstrap';
 
@@ -105,22 +105,22 @@ class FormSignup extends React.Component{
               <Form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="firstname">Prénom :</Form.Label>
-                    <Form.Control  id="firstname" name="prenom" value={this.state.prenom} onChange={this.handlePrenom}/>
+                    <Form.Control  id="firstname" name="prenom" value={this.state.prenom} onChange={this.handlePrenom} required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="lastname">Nom :</Form.Label>
-                    <Form.Control id="lastname" name="nom" value={this.state.nom} onChange={this.handleNom} />
+                    <Form.Control id="lastname" name="nom" value={this.state.nom} onChange={this.handleNom} required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="email">Aresse mail :</Form.Label>
-                    <Form.Control id="email" name="mail" type="email" value={this.state.mail} onChange={this.handleMail} />
+                    <Form.Control id="email" name="mail" type="email" value={this.state.mail} onChange={this.handleMail} required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label htmlFor="password">Mot De Passe :</Form.Label>
-                    <Form.Control id="password" name="password" type="password" value={this.state.password} onChange={this.handlePass} />
+                    <Form.Control id="password" name="password" type="password" value={this.state.password} onChange={this.handlePass} required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -148,8 +148,8 @@ class FormSignup extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                            <Button color="primary" type="submit">
-                                Se connecter
+                            <Button variant="danger" type="submit">
+                                S'inscrire
                             </Button>
                     </Form.Group>
             </Form>
