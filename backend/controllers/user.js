@@ -73,7 +73,7 @@ exports.signup = (req, res, next)=>{
                          token: jwt.sign(
                             { userId: newUser.id },
                             process.env.TOKEN_KEY,
-                            { expiresIn: '24h' }
+                            { expiresIn: '365d' }
                           ),
                           isAuth : true
                         }) 
@@ -116,7 +116,7 @@ exports.login = (req, res, next)=>{
                     token: jwt.sign(
                         { userId: user.id },
                         process.env.TOKEN_KEY,
-                        { expiresIn: '24h' }
+                        { expiresIn: '365d' }
                       ),
                       isAuth : true
                 });
