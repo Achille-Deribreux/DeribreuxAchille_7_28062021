@@ -4,13 +4,15 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const models = require ('../models');
 const utils  = require('../utils/utils');
+const CryptoJS = require("crypto-js");
 const fs = require('fs');
 require('dotenv').config();
 
 //Méthode création de compte
 exports.signup = (req, res, next)=>{
-
-    let mail = req.body.mail;
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
     let firstname = req.body.prenom;
     let password = req.body.password;
     let lastname = req.body.nom;
@@ -18,21 +20,11 @@ exports.signup = (req, res, next)=>{
     let isAdmin = req.body.isAdmin;
 //Vérifications à introduire
 
-    if (mail == null || password == null ) {
-        res.status(400).json({ error: 'il manque un paramètre' })
-    }
-    
-    models.Users.findOne({
-        attributes: ['mail'],
-        where: { mail: mail }
-    })
-    .then(user => {
-        if (!user) {
             bcrypt.hash(password, 10)
             .then((hash) => {
                 if(req.file){
                     const newUser = models.Users.create({
-                        mail: mail,
+                        mail: encryptedMail,
                         firstname: firstname,
                         password: hash,
                         lastname:lastname,
@@ -56,11 +48,8 @@ exports.signup = (req, res, next)=>{
                 }
                 else{
                 // Création de l'user
-                console.log("req",req.body.isAdmin);
-                console.log(isAdmin);
-                console.log("on bloque avant le enwUser")
-                const newUser = models.Users.create({
-                    mail: mail,
+               const newUser = models.Users.create({
+                    mail: encryptedMail,
                     firstname: firstname,
                     password: hash,
                     lastname:lastname,
@@ -83,24 +72,19 @@ exports.signup = (req, res, next)=>{
                     })}
             })
             .catch(err => { res.status(500).json({ err }) });
-        }
-        else {
-            res.status(409).json({ error: "Utilisateur existant" })
-        }
-    })      
-    .catch(err => { res.status(500).json({ err }) });
 }
 
 
 
 //méthode de connexion
 exports.login = (req, res, next)=>{
-    let mail = req.body.mail;
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
     let password = req.body.password;
-
+    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
     models.Users.findOne({
         attributes: ['mail', 'password','id'],
-        where: { mail: mail }
+        where: { mail: encryptedMail }
         })
     .then(user =>{
         if (!user){
