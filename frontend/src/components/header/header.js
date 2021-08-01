@@ -2,7 +2,6 @@
 
 //Imports 
 import React from 'react';
-import "./header.css"; //A dégager 
 
 //Imports Bootstrap
 import { Container, Navbar,Nav } from 'react-bootstrap';
@@ -104,10 +103,11 @@ class Header extends React.Component {
             return <div>Chargement…</div>;
           } else {
                 return (
+                <header>
                 <Navbar bg="dark" expand="lg" variant="dark">
                     <Container>
                         <Navbar.Brand>
-                            <IconButton onClick={this.homeRedirect}>
+                            <IconButton aria-label="get back home" onClick={this.homeRedirect}>
                                         <img
                                         alt=""
                                         src={logo}
@@ -161,6 +161,7 @@ class Header extends React.Component {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
+                </header>
     )}}
 }
 

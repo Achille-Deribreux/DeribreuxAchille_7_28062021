@@ -1,5 +1,4 @@
 import React from 'react';
-import "./header.css";
 //Imports Bootstrap
 import { Container, Navbar,Nav } from 'react-bootstrap';
 import PersonIcon from '@material-ui/icons/Person';
@@ -33,11 +32,12 @@ class Header extends React.Component{
     }
 
     render(){
-    return (
-             <Navbar bg="dark" expand="lg" variant="dark">
+    return (<header>
+                <Navbar bg="dark" expand="lg" variant="dark">
+                 
                     <Container>
                         <Navbar.Brand>
-                            <IconButton onClick={this.homeRedirect}>
+                            <IconButton  aria-label="get back home">
                                         <img
                                         alt=""
                                         src={logo}
@@ -51,7 +51,9 @@ class Header extends React.Component{
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                         <Navbar.Collapse id="basic-navbar-nav">
+                        
                             <Nav className="m-auto ">
+                                
                                 <Nav.Link> 
                                         <IconButton onClick={this.connexionRedirect}>
                                             <PersonIcon style={{ color: 'FFFFFF' }} /> 
@@ -69,11 +71,14 @@ class Header extends React.Component{
                                             </WhiteTextTypography>
                                         </IconButton>
                                 </Nav.Link>
-
+                                
                             </Nav>
+                           
                         </Navbar.Collapse>
                     </Container>
-                </Navbar>
+                    
+                    </Navbar>
+                </header>
     )
     }
 }
