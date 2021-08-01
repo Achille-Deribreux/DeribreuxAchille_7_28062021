@@ -23,7 +23,8 @@ class ProfileHeader extends React.Component{
           error: null,
           isLoaded: false,
           items: [],
-          id : ''
+          id : '',
+          connectedUserId :''
         };
       }
     
@@ -41,11 +42,22 @@ class ProfileHeader extends React.Component{
                 isLoaded: true,
                 items: results
               });
+              fetch("http://localhost:3000/api/auth/getuserId",{
+                headers:{
+                    'Authorization' : 'bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then((res) => {
+              this.setState({
+                connectedUserId : res.userId.userId
+              })
             })
           .catch(function(err){
             alert(err) // Affiche l'erreur dans une alert si erreur 
           });
-      }
+      })
+    }
       editRedirect = () => {
         const {userId} = this.props;
         this.props.history.push("/profileUpdate/?id="+userId);
@@ -80,6 +92,19 @@ class ProfileHeader extends React.Component{
           .catch((res)=>console.log(res))
       }
 
+      renderActions= () => { 
+        const id = (new URL(document.location)).searchParams.get('id');
+        if (this.state.connectedUserId.toString() === id ) {
+          return (
+          <ButtonGroup aria-label="Basic example">
+          <Button variant="transparent" onClick={this.editRedirect}><EditIcon color="primary"/></Button>
+          <Button variant="transparent" onClick={this.deletePost}>  <CancelIcon style={{ color: 'red' }} /></Button>
+        </ButtonGroup>)
+        }else{
+          return
+        }
+      }
+
       returnImage = () => {
         if (this.state.items.user.profileurl){
           return  <Image src={this.state.items.user.profileurl} className="w-100" roundedCircle/>
@@ -110,10 +135,7 @@ class ProfileHeader extends React.Component{
                       </Col>
 
                       <Col align="center">
-                        <ButtonGroup aria-label="Basic example">
-                          <Button variant="transparent" onClick={this.editRedirect}><EditIcon color="primary"/></Button>
-                          <Button variant="transparent" onClick={this.deletePost}>  <CancelIcon style={{ color: 'red' }} /></Button>
-                        </ButtonGroup>
+                        {this.renderActions()}
                       </Col>
                     </Row>
                   </Container>
