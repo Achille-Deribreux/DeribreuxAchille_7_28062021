@@ -147,6 +147,9 @@ exports.getUserId = (req, res, next) => {
 }
 
 exports.updateUser = (req, res, next) => {
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
     let id = utils.getUserId(req.headers.authorization);
     models.Users.findOne({
         where: { id: id }
@@ -172,7 +175,7 @@ exports.updateUser = (req, res, next) => {
                 fs.unlink(`images/${filename}`, () => {
                     models.Users.update(
                         { 
-                        mail : req.body.mail,
+                        mail : encryptedMail,
                         firstname : req.body.prenom,
                         lastname: req.body.nom,
                         //password : BCRYPT
@@ -189,7 +192,7 @@ exports.updateUser = (req, res, next) => {
             else{
                 models.Users.update(
                     { 
-                    mail : req.body.mail,
+                    mail : encryptedMail,
                     firstname : req.body.prenom,
                     lastname: req.body.nom,
                     //password : BCRYPT
@@ -206,7 +209,7 @@ exports.updateUser = (req, res, next) => {
         else{
             models.Users.update(
                 { 
-                mail : req.body.mail,
+                mail : encryptedMail,
                 firstname : req.body.prenom,
                 lastname: req.body.nom,
                 //password : BCRYPT

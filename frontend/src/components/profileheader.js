@@ -6,8 +6,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { Container, Row, Col, Button, Image, ButtonGroup } from 'react-bootstrap';
 import { withStyles } from "@material-ui/core/styles";
 import { toast } from 'react-toastify';
-
 import {withRouter} from "react-router-dom";
+
 
 const WhiteTextTypography = withStyles({
   root: {

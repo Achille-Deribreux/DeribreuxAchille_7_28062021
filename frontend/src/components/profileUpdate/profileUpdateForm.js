@@ -4,6 +4,7 @@ import WhiteTextTypography from '../WhiteTextTypo'
 import { toast } from 'react-toastify';
 import { withRouter} from "react-router-dom";
 
+
 class ProfileUpdateForm extends React.Component{
     constructor(props){
         super(props)
@@ -19,6 +20,8 @@ class ProfileUpdateForm extends React.Component{
         }
     }
     componentDidMount(){
+        
+
         let token = localStorage.getItem('token');
         fetch("http://localhost:3000/api/auth/"+this.state.userId,{
             headers:{
@@ -30,7 +33,6 @@ class ProfileUpdateForm extends React.Component{
               this.setState({
                 prenom: user.user.firstname,
                 nom: user.user.lastname,
-                mail : user.user.mail,
                 team: user.user.team,
                 isAdmin: user.user.isAdmin
                 });
@@ -142,12 +144,12 @@ class ProfileUpdateForm extends React.Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label htmlFor="email">Aresse mail :</Form.Label>
+                    <Form.Label htmlFor="email">Changer Aresse mail :</Form.Label>
                     <Form.Control name="mail" type="email" value={this.state.mail} id="email" onChange={this.handleMail} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label htmlFor="password" >Mot De Passe :</Form.Label>
+                    <Form.Label htmlFor="password" >Changer Mot De Passe :</Form.Label>
                     <Form.Control name="password" type="password" value={this.state.password} id="password" onChange={this.handlePass} />
                 </Form.Group>
 
