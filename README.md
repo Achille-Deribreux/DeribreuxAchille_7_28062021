@@ -49,5 +49,5 @@ Run project :
 <h5>5° In /backend : </h5>
 ``` $ node server.js  ```
 <h5>6° In /frontend : </h5>
-``` $ npm install  ```
+``` $ npm start  ```
 <br>
