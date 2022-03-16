@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/badge/react-%23ED8B09.svg?&&color=blue&style=for-the-badge&logo=react&logoColor=white"/> * * *  <img src="https://img.shields.io/badge/nodejs%20-%236DB33F.svg?&style=for-the-badge&logo=express&logoColor=white"/>  * * *  <img src="https://img.shields.io/badge/npm%20-%230db7ed.svg?&color=red&style=for-the-badge&logo=npm&logoColor=white"/> * * *  <img src="https://img.shields.io/badge/MYSQL%20-%236DB33F.svg?&color=orange&style=for-the-badge&logo=mysql&logoColor=white"/>
 </p>
 <h1 align="center">
- OpenClassrooms Web Developer Java Project 7
+ OpenClassrooms Web Developer Project 7
 </h1>
 <br>
 <p align="center">
@@ -12,7 +12,7 @@
 <br><br>
 
 <h2 align="center">
- OpenClassrooms Web Developer Java Project 7
+ OpenClassrooms Web Developer Project 7
 </h2>
 
 <p align="center">
