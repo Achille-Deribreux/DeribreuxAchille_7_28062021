@@ -40,14 +40,14 @@ Run project :
 </h3>
 
 <h5>1° In /backend : </h5>
-``` $ npm install  ```
+```$ npm install  ```
 <h5>2° In /frontend : </h5>
-``` $ npm install  ```
+```$ npm install  ```
 <h5>3° Configure your db access in config/json</h5>
 <h5>4° In /backend : </h5>
-``` npx sequelize-cli db:migrate dans backend ```
+```$ npx sequelize-cli db:migrate dans backend ```
 <h5>5° In /backend : </h5>
-``` $ node server.js  ```
+```$ node server.js  ```
 <h5>6° In /frontend : </h5>
-``` $ npm start  ```
+```$ npm start  ```
 <br>
